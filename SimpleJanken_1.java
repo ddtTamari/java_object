@@ -331,116 +331,192 @@ public class SimpleJanken_1 {
             //プレイヤーが5人の時
             if (howManyPlayer == 5) {
 
+                //プレイヤー1の手がグーだった時
                 if (player1Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : グー");
+                    //プレイヤー1の手がチョキだった時
                 } else if (player1Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : チョキ");
+                    //プレイヤー1の手がチョキだった時
                 } else if (player1Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : パー");
                 }
-
+                //プレイヤー2の手がグーだった時
                 if (player2Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player2Name + " : グー");
+                    //プレイヤー2の手がチョキだった時
                 } else if (player2Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : チョキ");
+                    //プレイヤー2の手がパーだった時
                 } else if (player2Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player2Name + " : パー");
                 }
-
+                //プレイヤー3の手がグーだった時
                 if (player3Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player3Name + " : グー");
+                    //プレイヤー3の手がチョキだった時
                 } else if (player3Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player3Name + " : チョキ");
+                    //プレイヤー3の手がパーだった時
                 } else if (player3Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player3Name + " : パー");
                 }
-
+                //プレイヤー4の手がグーだった時
                 if (player4Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player4Name + " : グー");
+                    //プレイヤー4の手がチョキだった時
                 } else if (player4Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player4Name + " : チョキ");
+                    //プレイヤー4の手がパーだった時
                 } else if (player4Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player4Name + " : パー");
                 }
-
+                //プレイヤー5の手がグーだった時
                 if (player5Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player5Name + " : グー");
+                    //プレイヤー5の手がチョキだった時
                 } else if (player5Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player5Name + " : チョキ");
+                    //プレイヤー5の手がパーだった時
                 } else if (player5Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player5Name + " : パー");
                 }
-
+                //プレイヤー人数が4人の時
             } else if (howManyPlayer == 4) {
+                //プレイヤー1の手がグーだった時
                 if (player1Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : グー");
+                    //プレイヤー1の手がチョキだった時
                 } else if (player1Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : チョキ");
+                    //プレイヤー1の手がチョキだった時
                 } else if (player1Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : パー");
                 }
-
+                //プレイヤー2の手がグーだった時
                 if (player2Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player2Name + " : グー");
+                    //プレイヤー2の手がチョキだった時
                 } else if (player2Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : チョキ");
+                    //プレイヤー2の手がパーだった時
                 } else if (player2Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player2Name + " : パー");
                 }
-
+                //プレイヤー3の手がグーだった時
                 if (player3Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player3Name + " : グー");
+                    //プレイヤー3の手がチョキだった時
                 } else if (player3Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player3Name + " : チョキ");
+                    //プレイヤー3の手がパーだった時
                 } else if (player3Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player3Name + " : パー");
                 }
-
+                //プレイヤー4の手がグーだった時
                 if (player4Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player4Name + " : グー");
+                    //プレイヤー4の手がチョキだった時
                 } else if (player4Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player4Name + " : チョキ");
+                    //プレイヤー4の手がパーだった時
                 } else if (player4Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player4Name + " : パー");
                 }
+                //プレイヤー人数3人の時
             } else if (howManyPlayer == 3) {
+                //プレイヤー1の手がグーだった時
                 if (player1Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : グー");
+                    //プレイヤー1の手がチョキだった時
                 } else if (player1Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : チョキ");
+                    //プレイヤー1の手がチョキだった時
                 } else if (player1Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : パー");
                 }
-
+                //プレイヤー2の手がグーだった時
                 if (player2Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player2Name + " : グー");
+                    //プレイヤー2の手がチョキだった時
                 } else if (player2Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : チョキ");
+                    //プレイヤー2の手がパーだった時
                 } else if (player2Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player2Name + " : パー");
                 }
-
+                //プレイヤー3の手がグーだった時
                 if (player3Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player3Name + " : グー");
+                    //プレイヤー3の手がチョキだった時
                 } else if (player3Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player3Name + " : チョキ");
+                    //プレイヤー3の手がパーだった時
                 } else if (player3Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player3Name + " : パー");
                 }
+                //プレイヤー人数が2人の時
             } else if (howManyPlayer == 2) {
+                //プレイヤー1の手がグーだった時
                 if (player1Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : グー");
+                    //プレイヤー1の手がチョキだった時
                 } else if (player1Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : チョキ");
+                    //プレイヤー1の手がチョキだった時
                 } else if (player1Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : パー");
                 }
-
+                //プレイヤー2の手がグーだった時
                 if (player2Hand == 0) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player2Name + " : グー");
+                    //プレイヤー2の手がチョキだった時
                 } else if (player2Hand == 1) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player1Name + " : チョキ");
+                    //プレイヤー2の手がパーだった時
                 } else if (player2Hand == 2) {
+                    //プレイヤーの名前と出した手を表示
                     System.out.println(player2Name + " : パー");
                 }
             }

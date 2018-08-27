@@ -31,23 +31,31 @@ public class Player {
     public int showHand() {
         //プレイヤーの手を保持するための変数
         int playerHand = 0;
+        //0~3までの数字を出すための変数
+        int adjustRandomNum = 3;
+        //1未満の時はグーと判断する変数
+        int judgePlayerHandStone = 1;
+        //2未満の時はチョキと判断する変数
+        int judgePlayerHandScissors = 2;
+        //3未満の時はグーと判断する変数
+        int judgePlayerHandPaper = 3;
 
         //0から3までのランダムな変数を出すための変数
-        double randomNum = Math.random() * 3;
+        double randomNum = Math.random() * adjustRandomNum;
         //ランダムな手の値が1未満ならPlayer1の出す手はグーにする
-        if (randomNum < 1) {
+        if (randomNum < judgePlayerHandStone) {
             //プレイヤー1の手はグー
             playerHand = STONE;
             //プレイヤー1がグーだったことを明示する
             System.out.print("グー");
             //ランダムで出た値が1以上2未満なら出す手はチョキになる
-        } else if (randomNum < 2) {
+        } else if (randomNum < judgePlayerHandScissors) {
             //プレイヤー1の手はチョキ
             playerHand = SCISSORS;
             //プレイヤー1がチョキだったことを明示する
             System.out.print("チョキ");
             //ランダムで出た値が2以上3未満なら出す手はパーになる
-        } else if (randomNum < 3) {
+        } else if (randomNum < judgePlayerHandPaper) {
             //プレイヤー1の手はチョキ
             playerHand = PAPER;
             //プレイヤー1がパーだったことを明示する
@@ -80,6 +88,10 @@ public class Player {
     public int getWinCount() {
         //カウントされた勝利数を返す
         return winCont_;
+    }
+
+    public String getName() {
+        return name_;
     }
 
 }

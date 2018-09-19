@@ -17,6 +17,7 @@ public class CyclicTactics implements Tactics {
      * @author 玉利
      * @return プレイヤーの出す手
      */
+    @Override
     //戦略インターフェースを実装するメソッド
     public int readTactics() {
 

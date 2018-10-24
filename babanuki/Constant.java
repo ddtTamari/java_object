@@ -3,14 +3,18 @@ package babanuki;
 public class Constant {
     //共通用定数
     public static final int INITIAL_NUM = 0;
+    public static final int ADJUST_ELEMENT_NUM = 1;
 
     //カード用定数
-    public static final int TOTAL_TRUMP_NUM = 53;
+    public static final int MAX_TRUMP_NUM = 53;
     public static final int TRUMP_SUIT_HEART = 0;
     public static final int TRUMP_SUIT_DIAMOND = 16;
     public static final int TRUMP_SUIT_SPADE = 32;
     public static final int TRUMP_SUIT_CLUB = 48;
     public static final int TRUMP_SUIT_JOKER = 63;
+    public static final int TRUMP_NUM_KING = 13;
+    public static final int TRUMP_NUM_QUEEN = 12;
+    public static final int TRUMP_NUM_JACK = 11;
 
     //トランプに使用しない数字
     public static final int MISSING_NUM_001110 = 14;
@@ -25,6 +29,5 @@ public class Constant {
     //出力メッセージ
     public static final String ASK_NUM_OF_PLAYER = "プレイヤーは何人でプレーしますか？";
     public static final String ASK_PLAYER_NAME = "人目のプレイヤーの名前はなんですか？";
-
 
 }

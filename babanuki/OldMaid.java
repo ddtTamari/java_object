@@ -7,6 +7,7 @@ public class OldMaid {
     public static void main(String[] args) {
 
         Facilitator facilitator = new Facilitator();
+        facilitator.startOldMaid();
 
     }
 

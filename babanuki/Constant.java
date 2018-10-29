@@ -7,14 +7,20 @@ public class Constant {
 
     //カード用定数
     public static final int MAX_TRUMP_NUM = 53;
+    public static final int MAX_NUMBER_OF_TRUMP = 13;
     public static final int TRUMP_SUIT_HEART = 0;
+    public static final int TRUMP_SUIT_HEART_ELEMENT = 0;
     public static final int TRUMP_SUIT_DIAMOND = 16;
+    public static final int TRUMP_SUIT_DIAMOND_ELEMENT = 1;
     public static final int TRUMP_SUIT_SPADE = 32;
+    public static final int TRUMP_SUIT_SPADE_ELEMENT = 2;
     public static final int TRUMP_SUIT_CLUB = 48;
+    public static final int TRUMP_SUIT_CLUB_ELEMENT = 3;
     public static final int TRUMP_SUIT_JOKER = 63;
     public static final int TRUMP_NUM_KING = 13;
     public static final int TRUMP_NUM_QUEEN = 12;
     public static final int TRUMP_NUM_JACK = 11;
+    public static final int TRUMP_SUIT_NUM = 4;
 
     //トランプに使用しない数字
     public static final int MISSING_NUM_001110 = 14;

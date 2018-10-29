@@ -2,35 +2,36 @@ package babanuki;
 
 public class Player {
     private String mUserName;
-    static int playerID = Constant.INITIAL_NUM;
+    static int mPlayerID = Constant.INITIAL_NUM;
+    PlayersHand playersHand = new PlayersHand();
 
     //コンストラクタ群
 
     public Player() {
-        playerID++;
+        mPlayerID++;
     }
 
     public Player(String userName) {
         this.mUserName = userName;
-        playerID++;
+        mPlayerID++;
     }
 
     public void createHands() {
-        PlayersHand playersHand = new PlayersHand();
+
     }
 
     //セッター
     public void setPlayerID() {
-        playerID = playerID + 1;
+        mPlayerID = this.mPlayerID;
     }
 
     //ゲッター
     public int getPlayerID() {
-        return playerID;
+        return mPlayerID;
     }
 
     public void setPlayerHand(int card) {
-
+        playersHand.setPlayerHand(card);
     }
 
 }

@@ -1,9 +1,11 @@
 package babanuki;
 
+import java.util.List;
+
 public class Player {
     private String mUserName;
-    static int mPlayerID = Constant.INITIAL_NUM;
-    PlayersHand playersHand = new PlayersHand();
+    private static int mPlayerID = Constant.INITIAL_NUM;
+    private PlayersHand playersHand = new PlayersHand();
 
     //コンストラクタ群
 
@@ -32,6 +34,14 @@ public class Player {
 
     public void setPlayerHand(int card) {
         playersHand.setPlayerHand(card);
+    }
+
+    public void showHands(String id) {
+        List<Integer> playersHands = playersHand.getPlayerHand();
+        System.out.println(id + "さん");
+        for (int a : playersHands) {
+            System.out.println(a);
+        }
     }
 
 }

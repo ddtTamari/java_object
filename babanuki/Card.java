@@ -15,11 +15,11 @@ public class Card {
      ジョーカー：111111
      */
 
-    private List<Integer> trumpCardList = new ArrayList<>();
-    private int[] usedCard = new int[Constant.MAX_TRUMP_NUM];
+    private List<Integer> mTrumpCardList = new ArrayList<>();
+    private int[] mUsedCard = new int[Constant.MAX_TRUMP_NUM];
 
-    //カード配布のメソッド
-    public void distributionCards(int playerNum) {
+    //カード作成とシャッフル処理のメソッド
+    public void shuffleCards() {
         //トランプリストを作成
         setTrumpList();
         //トランプをシャッフル
@@ -36,23 +36,23 @@ public class Card {
                 setTrumpCard(suitNum, trumpNum + Constant.ADJUST_ELEMENT_NUM);
             }
         }
-        trumpCardList.add(Constant.TRUMP_SUIT_JOKER);
+        mTrumpCardList.add(Constant.TRUMP_SUIT_JOKER);
     }
 
-    //スートと数字を組み合わせる
+    //スートと数字を組み合わせ処理
     public void setTrumpCard(int suitNum, int cardNum) {
         switch (suitNum) {
         case Constant.TRUMP_SUIT_HEART_ELEMENT:
-            trumpCardList.add(Constant.TRUMP_SUIT_HEART | cardNum);
+            mTrumpCardList.add(Constant.TRUMP_SUIT_HEART | cardNum);
             break;
         case Constant.TRUMP_SUIT_DIAMOND_ELEMENT:
-            trumpCardList.add(Constant.TRUMP_SUIT_DIAMOND | cardNum);
+            mTrumpCardList.add(Constant.TRUMP_SUIT_DIAMOND | cardNum);
             break;
         case Constant.TRUMP_SUIT_SPADE_ELEMENT:
-            trumpCardList.add(Constant.TRUMP_SUIT_SPADE | cardNum);
+            mTrumpCardList.add(Constant.TRUMP_SUIT_SPADE | cardNum);
             break;
         case Constant.TRUMP_SUIT_CLUB_ELEMENT:
-            trumpCardList.add(Constant.TRUMP_SUIT_CLUB | cardNum);
+            mTrumpCardList.add(Constant.TRUMP_SUIT_CLUB | cardNum);
             break;
         default:
             break;
@@ -61,17 +61,19 @@ public class Card {
 
     //トランプリストをシャッフル
     public void shuffleTrumpList() {
-        Collections.shuffle(trumpCardList);
+        Collections.shuffle(mTrumpCardList);
     }
 
     //使用済みカードの登録
     public void imputUsedCardList(int imputCardNum, int elementNum) {
-        usedCard[elementNum] = imputCardNum;
+        mUsedCard[elementNum] = imputCardNum;
     }
 
-    //
-    public void registPlayerHand(int card) {
+    public int returnCard(int element) {
+        int ret = Constant.INITIAL_NUM;
 
+        ret = mTrumpCardList.get(element).intValue();
+        return ret;
     }
 
 }

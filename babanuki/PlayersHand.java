@@ -5,40 +5,27 @@ import java.util.List;
 
 public class PlayersHand {
 
-    static int playerHandID = Constant.INITIAL_NUM;
     public List<Integer> playerHandsList = new ArrayList<>();
-
-    public PlayersHand() {
-        playerHandID++;
-    }
+    BabanukiManage babanukiAction = new BabanukiManage();
 
     public void playersHands() {
 
     }
 
-    public int getPlayerHandID() {
-        return playerHandID;
-    }
-
     public void setPlayerHand(int inputCards) {
-        checkSameNum(inputCards);
-        playerHandsList.add(inputCards);
+        //同じ数字が手札にないか確認を行う
+        boolean sameNum = babanukiAction.checkSameNum(inputCards, playerHandsList);
+        int removeCardId = Constant.INITIAL_NUM;
 
-    }
-
-    public void checkSameNum(int card) {
-        for (int i = Constant.INITIAL_NUM; i < playerHandsList.size(); i++) {
-
+        //同じ数字の手札がないときの処理
+        if (!sameNum) {
+            //手札に加える
+            playerHandsList.add(inputCards);
+            //手札にあればそのカードを消す
+        } else if (sameNum) {
+            removeCardId = babanukiAction.getThrowCardId();
+            playerHandsList.remove(removeCardId);
         }
-    }
-
-    // カードを数字のみにするメソッド
-    public int convertTrumpNum(int card) {
-        //左に2ずらしてスートを消す
-        card = card << 2;
-        //右に2ずらして数字をのみにする
-        card = card >> 2;
-        return card;
     }
 
     public void dropSameNum() {

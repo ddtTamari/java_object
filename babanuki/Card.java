@@ -36,6 +36,7 @@ public class Card {
                 setTrumpCard(suitNum, trumpNum + Constant.ADJUST_ELEMENT_NUM);
             }
         }
+        //トランプリストにカードを登録する
         mTrumpCardList.add(Constant.TRUMP_SUIT_JOKER);
     }
 
@@ -69,9 +70,9 @@ public class Card {
         mUsedCard[elementNum] = imputCardNum;
     }
 
+    //カードを呼び出し元に渡す()
     public int returnCard(int element) {
         int ret = Constant.INITIAL_NUM;
-
         ret = mTrumpCardList.get(element).intValue();
         return ret;
     }

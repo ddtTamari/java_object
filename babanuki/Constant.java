@@ -21,6 +21,7 @@ public class Constant {
     public static final int TRUMP_NUM_QUEEN = 12;
     public static final int TRUMP_NUM_JACK = 11;
     public static final int TRUMP_SUIT_NUM = 4;
+    public static final int TRUMP_LOSE_SUIT = 28;
 
     //トランプに使用しない数字
     public static final int MISSING_NUM_001110 = 14;

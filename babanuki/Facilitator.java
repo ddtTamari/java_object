@@ -24,44 +24,67 @@ public class Facilitator {
         }
     }
 
+    //プレイヤー人数の取得
+    public void askPlayerNum() {
+        //プレイヤーの人数を聞く
+        System.out.print(Constant.ASK_NUM_OF_PLAYER);
+        //プレイヤー人数用の変数に格納
+        mPlayerNum = userImput.nextInt();
+    }
+
     //プレイヤー作成処理
     public void createPlayer(String[] userName, Player[] player) {
+        //スキャナで読み取った名前を格納しておく変数
+        String playerName = "";
+        //プレイヤーの名前とプレイヤークラスを作成するため人数分繰り返す
         for (int i = Constant.INITIAL_NUM; i < mPlayerNum; i++) {
+            //プレイヤーの名前を聞く文言を表示
             System.out.println(i + Constant.ADJUST_ELEMENT_NUM + Constant.ASK_PLAYER_NAME);
-            String playerName = userImput.next();
+            //プレイヤーネームをユーザ入力から取得
+            playerName = userImput.next();
+            //名前を入れておくための配列に格納
             userName[i] = playerName;
+            //プレイヤー名を持ったプレイヤークラスを作成する
             player[i] = new Player(userName[i]);
         }
     }
 
-    //配る処理？
+    //配る処理
     public void distribution(Card trump, Player[] player) {
+        //どのプレイヤーに配るかIDを用意しておく
         int playerID = Constant.INITIAL_NUM;
-        for (int i = Constant.INITIAL_NUM; i < Constant.MAX_TRUMP_NUM; i++) {
-            int inputCard = getCard(trump, i);
-            distributionPlayer(player, inputCard, i, playerID);
+        //プレイヤーに渡すカード
+        int inputCard = Constant.INITIAL_NUM;
+        //53枚配り終わるまで繰り返す
+        for (int trumpID = Constant.INITIAL_NUM; trumpID < Constant.MAX_TRUMP_NUM; trumpID++) {
+            //プレイヤーに渡すカードを取得する
+            inputCard = getCard(trump, trumpID);
+            //プレイヤーに配る処理を行う
+            distributionPlayer(player, inputCard, trumpID, playerID);
+            //次のプレイヤーに配る人を変える
             playerID = playerID + 1;
-            if (playerID == mPlayerNum - Constant.ADJUST_ELEMENT_NUM) {
+            //プレイヤーがmax行くまで繰り返す
+            if (playerID == mPlayerNum) {
+                //初期化する
                 playerID = Constant.INITIAL_NUM;
             }
-
         }
     }
 
+    //プレイヤークラスに手札としてカードを配る
     public void distributionPlayer(Player[] player, int card, int element, int playerID) {
+        //引数に渡された
         player[playerID].setPlayerHand(card);
     }
 
+    //カードクラスから指定された番号のカードを返す
     public int getCard(Card trump, int element) {
+        //カードクラスから受け取ったトランプを格納する変数
         int card = Constant.INITIAL_NUM;
+        //指定された番号の位置のカードをカードクラスから受け取ってくる
         card = trump.returnCard(element);
+        //加える手札として返す
         return card;
-    }
-
-    //プレイヤー人数の取得
-    public void askPlayerNum() {
-        System.out.print(Constant.ASK_NUM_OF_PLAYER);
-        mPlayerNum = userImput.nextInt();
     }
 
 }

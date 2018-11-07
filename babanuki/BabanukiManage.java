@@ -38,10 +38,10 @@ public class BabanukiManage extends HandsManage {
     public int convertTrumpNum(int card) {
         //ジョーカーじゃなければ
         if (card != Constant.TRUMP_SUIT_JOKER) {
-            //左に2ずらしてスートを消す
+            //左に28ずらしてスートを消す
             card = card << Constant.TRUMP_LOSE_SUIT;
-            //右に2ずらして数字をのみにする
-            card = card >> Constant.TRUMP_LOSE_SUIT;
+            //右に28ずらして数字をのみにする
+            card = card >>> Constant.TRUMP_LOSE_SUIT;
         }
         //カードを数字のみにした値を返す
         return card;

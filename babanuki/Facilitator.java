@@ -17,11 +17,10 @@ public class Facilitator {
         createPlayer(userName, player);
         trump.shuffleCards();
         distribution(trump, player);
+        //手札を見せる
+        showHand(userName, player);
+        //同じ数字の手札がないか確認させる
 
-        for (int i = Constant.INITIAL_NUM; i < mPlayerNum; i++) {
-            String user = userName[i];
-            player[i].showHands(user);
-        }
     }
 
     //プレイヤー人数の取得
@@ -37,15 +36,15 @@ public class Facilitator {
         //スキャナで読み取った名前を格納しておく変数
         String playerName = "";
         //プレイヤーの名前とプレイヤークラスを作成するため人数分繰り返す
-        for (int i = Constant.INITIAL_NUM; i < mPlayerNum; i++) {
+        for (int playerID = Constant.INITIAL_NUM; playerID < mPlayerNum; playerID++) {
             //プレイヤーの名前を聞く文言を表示
-            System.out.println(i + Constant.ADJUST_ELEMENT_NUM + Constant.ASK_PLAYER_NAME);
+            System.out.println(playerID + Constant.ADJUST_ELEMENT_NUM + Constant.ASK_PLAYER_NAME);
             //プレイヤーネームをユーザ入力から取得
             playerName = userImput.next();
             //名前を入れておくための配列に格納
-            userName[i] = playerName;
+            userName[playerID] = playerName;
             //プレイヤー名を持ったプレイヤークラスを作成する
-            player[i] = new Player(userName[i]);
+            player[playerID] = new Player(userName[playerID]);
         }
     }
 
@@ -71,9 +70,21 @@ public class Facilitator {
         }
     }
 
+    //手札を見せる処理(デバッグ用)
+    public void showHand(String[] userName, Player[] player) {
+        for (int i = Constant.INITIAL_NUM; i < mPlayerNum; i++) {
+            String user = userName[i];
+            player[i].showHands(user);
+        }
+    }
+
+
+
+
+
     //プレイヤークラスに手札としてカードを配る
     public void distributionPlayer(Player[] player, int card, int element, int playerID) {
-        //引数に渡された
+        //引数に渡されたカードをプレイヤーに渡す
         player[playerID].setPlayerHand(card);
     }
 
@@ -85,6 +96,13 @@ public class Facilitator {
         card = trump.returnCard(element);
         //加える手札として返す
         return card;
+    }
+
+    //同じ数字の手札がないかチェックさせる
+    public void toCheckSameCard(Player[] players) {
+        for (int i = Constant.INITIAL_NUM; i < mPlayerNum; i++) {
+            players[i].checkSameNumHand(i);
+        }
     }
 
 }

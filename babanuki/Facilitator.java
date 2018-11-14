@@ -20,7 +20,8 @@ public class Facilitator {
         //手札を見せる
         showHand(userName, player);
         //同じ数字の手札がないか確認させる
-
+        makeAllPlayerHandsCheck(player);
+        showHand(userName, player);
     }
 
     //プレイヤー人数の取得
@@ -70,6 +71,18 @@ public class Facilitator {
         }
     }
 
+    //全員の手札を確認させる処理
+    public void makeAllPlayerHandsCheck(Player[] player) {
+        for (int playerID = Constant.INITIAL_NUM; playerID < mPlayerNum; playerID++) {
+            player[playerID].checkSameNumHand();
+        }
+    }
+
+    //個人の手札を確認させる処理
+    public void makePlayerHandsCheck(int playerId) {
+
+    }
+
     //手札を見せる処理(デバッグ用)
     public void showHand(String[] userName, Player[] player) {
         for (int i = Constant.INITIAL_NUM; i < mPlayerNum; i++) {
@@ -77,10 +90,6 @@ public class Facilitator {
             player[i].showHands(user);
         }
     }
-
-
-
-
 
     //プレイヤークラスに手札としてカードを配る
     public void distributionPlayer(Player[] player, int card, int element, int playerID) {
@@ -96,13 +105,6 @@ public class Facilitator {
         card = trump.returnCard(element);
         //加える手札として返す
         return card;
-    }
-
-    //同じ数字の手札がないかチェックさせる
-    public void toCheckSameCard(Player[] players) {
-        for (int i = Constant.INITIAL_NUM; i < mPlayerNum; i++) {
-            players[i].checkSameNumHand(i);
-        }
     }
 
 }

@@ -15,19 +15,14 @@ public class Player {
         this.mUserName = userName;
     }
 
-    public void createHands() {
-
-    }
-
     //引数に渡されたカードを手札に登録
     public void setPlayerHand(int card) {
         //手札に登録する
         manageGame.setPlayerHand(card);
     }
 
-    public void checkSameNumHand(int playerID) {
-        // List<Integer> hands = manageGame.getPlayerHand();
-
+    public void checkSameNumHand() {
+        manageGame.checkSameNum();
     }
 
     //手札表示用(デバッグ用)

@@ -27,6 +27,8 @@ public class BabanukiManage extends HandsManage {
                 if (sameNum) {
                     //同じ数字だった手札リストの数字を捨てる
                     throwSameCard(handsId, checkId);
+                    //確認する手札のIDをリセットする
+                    handsId = Constant.INITIAL_NUM;
                     break;
                 }
             }

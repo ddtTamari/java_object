@@ -37,5 +37,11 @@ public class Constant {
     //出力メッセージ
     public static final String ASK_NUM_OF_PLAYER = "プレイヤーは何人でプレーしますか？";
     public static final String ASK_PLAYER_NAME = "人目のプレイヤーの名前はなんですか？";
+    public static final String USER_NAME_TITLE = "さん";
+    public static final String USER_HAS = "さんは";
+    public static final String NUM_OF_USER_HANDS = "枚持っている‼";
+    
+   
+    
 
 }

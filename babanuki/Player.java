@@ -28,7 +28,7 @@ public class Player {
     //手札表示用(デバッグ用)
     public void showHands(String id) {
         List<Integer> playersHands = manageGame.getPlayerHand();
-        System.out.println(id + "さん");
+        System.out.println(id + Constant.USER_HAS + playersHands.size() + Constant.NUM_OF_USER_HANDS);
         for (int a : playersHands) {
             String suit = convertTrump(a);
             int num = convertTrumpNum(a);
@@ -38,6 +38,7 @@ public class Player {
             } else {
                 System.out.println(suit + num);
             }
+
         }
     }
 

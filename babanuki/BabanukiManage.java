@@ -4,6 +4,7 @@ import java.util.List;
 
 public class BabanukiManage extends HandsManage {
     private List<Integer> playerHands = getPlayerHand();
+    private ConvertTrumpCard convertTrump = new ConvertTrumpCard();
 
     //最初に同じ番号があるかどうかを確認するメソッド
     public void checkSameNum() {
@@ -15,11 +16,11 @@ public class BabanukiManage extends HandsManage {
 
         //手札の数だけ確認を行う
         for (int handsId = Constant.INITIAL_NUM; handsId < playerHands.size(); handsId++) {
-            handsCheckCardNum = convertTrumpNum(playerHands.get(handsId).intValue());
+            handsCheckCardNum = convertTrump.convertTrumpNum(playerHands.get(handsId).intValue());
             for (int checkId = Constant.INITIAL_NUM; checkId < playerHands.size(); checkId++) {
                 if (handsId != checkId) {
                     //要素番号の手札を数字のみにする
-                    handsCardNum = convertTrumpNum(playerHands.get(checkId).intValue());
+                    handsCardNum = convertTrump.convertTrumpNum(playerHands.get(checkId).intValue());
                     //同じ数字かどうかを判定する
                     sameNum = judgeSameNum(handsCheckCardNum, handsCardNum);
                 }

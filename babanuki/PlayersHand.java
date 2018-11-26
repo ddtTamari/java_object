@@ -6,6 +6,7 @@ import java.util.List;
 public class PlayersHand {
 
     public List<Integer> playerHandsList = new ArrayList<>();
+    DiscardTable dropTable = new DiscardTable();
 
     public void playersHands() {
 
@@ -17,7 +18,8 @@ public class PlayersHand {
         playerHandsList.add(inputCards);
     }
 
-    public void dropSameCard(int drpCardId) {
+    public void dropCard(int drpCardId) {
+        dropTable.setDiscardList(playerHandsList.get(drpCardId));
         playerHandsList.remove(drpCardId);
     }
 

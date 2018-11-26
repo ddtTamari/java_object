@@ -5,6 +5,7 @@ import java.util.List;
 public class Player {
     private String mUserName;
     private BabanukiManage manageGame = new BabanukiManage();
+    private ConvertTrumpCard convertTrump = new ConvertTrumpCard();
 
     //コンストラクタ群
 
@@ -25,46 +26,26 @@ public class Player {
         manageGame.checkSameNum();
     }
 
+    public boolean isFinish() {
+        boolean finish = false;
+        List<Integer> playersHands = manageGame.getPlayerHand();
+        if (playersHands.size() == Constant.INITIAL_NUM) {
+            finish = true;
+        }
+        return finish;
+    }
+
     //手札表示用(デバッグ用)
     public void showHands(String id) {
         List<Integer> playersHands = manageGame.getPlayerHand();
         System.out.println(id + Constant.USER_HAS + playersHands.size() + Constant.NUM_OF_USER_HANDS);
-        for (int a : playersHands) {
-            String suit = convertTrump(a);
-            int num = convertTrumpNum(a);
-            if (num == Constant.TRUMP_SUIT_JOKER) {
-                suit = "🃏";
-                System.out.println(suit);
-            } else {
-                System.out.println(suit + num);
-            }
-
+        for (int elements : playersHands) {
+            String suit = convertTrump.convertTrumpSuit(elements);
+            String num = convertTrump.convertTrumpNum(String.valueOf(elements));
+            System.out.print(suit + num);
+            System.out.print("|");
         }
-    }
-
-    //トランプのスートを表示(デバッグ用)
-    public String convertTrump(int card) {
-        String suit = "";
-        if ((card & Constant.TRUMP_SUIT_CLUB) == Constant.TRUMP_SUIT_CLUB) {
-            suit = "♣";
-        } else if ((card & Constant.TRUMP_SUIT_SPADE) == Constant.TRUMP_SUIT_SPADE) {
-            suit = "♠";
-        } else if ((card & Constant.TRUMP_SUIT_DIAMOND) == Constant.TRUMP_SUIT_DIAMOND) {
-            suit = "♢";
-        } else if ((card & Constant.TRUMP_SUIT_HEART) == Constant.TRUMP_SUIT_HEART) {
-            suit = "♡";
-        }
-        return suit;
-    }
-
-    // カードを数字のみにするメソッド(デバッグ用)
-    public int convertTrumpNum(int card) {
-        //ジョーカーじゃなければ
-        if (card != Constant.TRUMP_SUIT_JOKER) {
-            card = card & Constant.TRUMP_LOSE_SUIT;
-        }
-        //カードを数字のみにした値を返す
-        return card;
+        System.out.println();
     }
 
 }

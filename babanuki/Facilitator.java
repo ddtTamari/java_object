@@ -5,23 +5,37 @@ import java.util.Scanner;
 public class Facilitator {
     Scanner userImput = new Scanner(System.in);
     private int mPlayerNum = Constant.INITIAL_NUM;
+    private Card trump = new Card();
 
     //ゲーム開始処理
-    public void startOldMaid() {
-        Card trump = new Card();
-        askPlayerNum();
+    public void doOldMaid() {
 
+        askPlayerNum();
         String[] userName = new String[mPlayerNum];
         Player[] player = new Player[mPlayerNum];
+        boolean notFinish = true;
 
+        initialOperation(userName, player);
+        showHand(userName, player);
+
+        while (notFinish) {
+
+        }
+
+    }
+
+    //初回一回目のみ行う動作
+    public void initialOperation(String[] userName, Player[] player) {
+        //プレイヤークラスの作成
         createPlayer(userName, player);
+        //カードをシャッフル
         trump.shuffleCards();
+        //カードを配る
         distribution(trump, player);
-        //手札を見せる
+        //手札を見せる(完璧デバッグ用)
         showHand(userName, player);
         //同じ数字の手札がないか確認させる
         makeAllPlayerHandsCheck(player);
-        showHand(userName, player);
     }
 
     //プレイヤー人数の取得
@@ -30,6 +44,7 @@ public class Facilitator {
         System.out.print(Constant.ASK_NUM_OF_PLAYER);
         //プレイヤー人数用の変数に格納
         mPlayerNum = userImput.nextInt();
+
     }
 
     //プレイヤー作成処理

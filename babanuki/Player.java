@@ -6,6 +6,7 @@ public class Player {
     private String mUserName;
     private BabanukiManage manageGame = new BabanukiManage();
     private ConvertTrumpCard convertTrump = new ConvertTrumpCard();
+    private List<Integer> playersHands = manageGame.getPlayerHand();
 
     //コンストラクタ群
 
@@ -14,6 +15,10 @@ public class Player {
 
     public Player(String userName) {
         this.mUserName = userName;
+    }
+
+    public String getPlayerName() {
+        return mUserName;
     }
 
     //引数に渡されたカードを手札に登録
@@ -28,11 +33,20 @@ public class Player {
 
     public boolean isFinish() {
         boolean finish = false;
-        List<Integer> playersHands = manageGame.getPlayerHand();
-        if (playersHands.size() == Constant.INITIAL_NUM) {
+        if (playersHands.size() == Constant.FINISH_GAME_NUM) {
             finish = true;
         }
         return finish;
+    }
+
+    public int handsSize() {
+        int handSize = playersHands.size();
+        return handSize;
+    }
+
+    //カードを引く動作を行う
+    public void drawPlayersHand(List<Integer> opponent) {
+
     }
 
     //手札表示用(デバッグ用)

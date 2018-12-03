@@ -13,13 +13,20 @@ public class Facilitator {
         askPlayerNum();
         String[] userName = new String[mPlayerNum];
         Player[] player = new Player[mPlayerNum];
-        boolean notFinish = true;
+        boolean finish = false;
+        int turnUserID = Constant.INITIAL_NUM;
 
         initialOperation(userName, player);
         showHand(userName, player);
 
-        while (notFinish) {
-
+        //ゲーム終了していないとき
+        while (!finish) {
+            drawCard(player, turnUserID);
+            turnUserID++;
+            if (turnUserID == (mPlayerNum - Constant.ADJUST_ELEMENT_NUM)) {
+                turnUserID = 0;
+            }
+            finish = checkRemainPlayerCard(player);
         }
 
     }
@@ -120,6 +127,39 @@ public class Facilitator {
         card = trump.returnCard(element);
         //加える手札として返す
         return card;
+    }
+
+    //他プレイヤーからカードを引く
+    public void drawCard(Player[] player, int drawUserID) {
+
+        System.out.println(player[drawUserID].getPlayerName() + Constant.ASK_DRAW_POSITION);
+        int drawPosition = userImput.nextInt();
+        int giveCardUser = Constant.INITIAL_NUM;
+
+        boolean isFinishPlayer = isFinishPlayer();
+        while (isFinishPlayer) {
+
+        }
+
+    }
+
+    public Boolean isFinishPlayer() {
+        boolean isFinish = true;
+
+        return isFinish;
+    }
+
+    //jokerが残る最後の一枚になっているかどうか判定
+    public boolean checkRemainPlayerCard(Player[] player) {
+        boolean allFinish = false;
+        int allHandsSize = Constant.INITIAL_NUM;
+        for (int i = Constant.INITIAL_NUM; i < mPlayerNum; i++) {
+            allHandsSize = allHandsSize + player[i].handsSize();
+        }
+        if (allHandsSize == Constant.FINISH_GAME_NUM) {
+            allFinish = true;
+        }
+        return allFinish;
     }
 
 }

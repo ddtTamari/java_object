@@ -60,4 +60,8 @@ public class BabanukiManage extends HandsManage {
         }
     }
 
+    public int retCard(int getCardId) {
+        return playerHands.get(getCardId);
+    }
+
 }

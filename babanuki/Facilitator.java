@@ -1,5 +1,7 @@
 package babanuki;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Facilitator {
@@ -13,20 +15,24 @@ public class Facilitator {
         askPlayerNum();
         String[] userName = new String[mPlayerNum];
         Player[] player = new Player[mPlayerNum];
+        List<String> playerList = new ArrayList<String>();
+        List<String> winnerList = new ArrayList<String>();
         boolean finish = false;
         int turnUserID = Constant.INITIAL_NUM;
 
+        makePlayerList(playerList, mPlayerNum, userName);
         initialOperation(userName, player);
         showHand(userName, player);
 
         //ゲーム終了していないとき
         while (!finish) {
-            drawCard(player, turnUserID);
+            drawCard(player, turnUserID, playerList);
             turnUserID++;
-            if (turnUserID == (mPlayerNum - Constant.ADJUST_ELEMENT_NUM)) {
+            if (turnUserID == (playerList.size() - Constant.ADJUST_ELEMENT_NUM)) {
                 turnUserID = 0;
             }
-            finish = checkRemainPlayerCard(player);
+            showHand(userName, player);
+            finish = checkRemainPlayer(playerList);
         }
 
     }
@@ -68,6 +74,13 @@ public class Facilitator {
             userName[playerID] = playerName;
             //プレイヤー名を持ったプレイヤークラスを作成する
             player[playerID] = new Player(userName[playerID]);
+        }
+    }
+
+    //playerlistを作成するメソッド
+    public void makePlayerList(List<String> playerList, int playerNum, String[] playerName) {
+        for (int i = Constant.INITIAL_NUM; i < playerNum; i++) {
+            playerList.add(playerName[i]);
         }
     }
 
@@ -130,33 +143,20 @@ public class Facilitator {
     }
 
     //他プレイヤーからカードを引く
-    public void drawCard(Player[] player, int drawUserID) {
+    public void drawCard(Player[] player, int drawUserID, List<String> playerList) {
 
-        System.out.println(player[drawUserID].getPlayerName() + Constant.ASK_DRAW_POSITION);
-        int drawPosition = userImput.nextInt();
-        int giveCardUser = Constant.INITIAL_NUM;
-
-        boolean isFinishPlayer = isFinishPlayer();
-        while (isFinishPlayer) {
-
+        int giveCardUser = drawUserID + Constant.NEXT_PLAYER;
+        if (giveCardUser > playerList.size()) {
+            giveCardUser = Constant.INITIAL_NUM;
         }
+        player[drawUserID].drawPlayersHand(player[giveCardUser]);
 
-    }
-
-    public Boolean isFinishPlayer() {
-        boolean isFinish = true;
-
-        return isFinish;
     }
 
     //jokerが残る最後の一枚になっているかどうか判定
-    public boolean checkRemainPlayerCard(Player[] player) {
+    public boolean checkRemainPlayer(List<String> playerList) {
         boolean allFinish = false;
-        int allHandsSize = Constant.INITIAL_NUM;
-        for (int i = Constant.INITIAL_NUM; i < mPlayerNum; i++) {
-            allHandsSize = allHandsSize + player[i].handsSize();
-        }
-        if (allHandsSize == Constant.FINISH_GAME_NUM) {
+        if (playerList.size() == Constant.FINISH_GAME_NUM) {
             allFinish = true;
         }
         return allFinish;

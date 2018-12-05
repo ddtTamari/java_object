@@ -1,12 +1,14 @@
 package babanuki;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Player {
     private String mUserName;
     private BabanukiManage manageGame = new BabanukiManage();
     private ConvertTrumpCard convertTrump = new ConvertTrumpCard();
     private List<Integer> playersHands = manageGame.getPlayerHand();
+    Scanner userImput = new Scanner(System.in);
 
     //コンストラクタ群
 
@@ -27,6 +29,10 @@ public class Player {
         manageGame.setPlayerHand(card);
     }
 
+    public void removePlayerHand(int cardId) {
+        manageGame.throwCard(cardId);
+    }
+
     public void checkSameNumHand() {
         manageGame.checkSameNum();
     }
@@ -44,8 +50,23 @@ public class Player {
         return handSize;
     }
 
+    public int retHands(int getCardId) {
+        int card = manageGame.retCard(getCardId);
+        return card;
+    }
+
     //カードを引く動作を行う
-    public void drawPlayersHand(List<Integer> opponent) {
+    public void drawPlayersHand(Player opponent) {
+        
+        int drawPosition = Constant.INITIAL_NUM;
+        while (Constant.INITIAL_NUM >= drawPosition || drawPosition > opponent.handsSize()) {
+            System.out.println(mUserName + Constant.ASK_DRAW_POSITION);
+            drawPosition = userImput.nextInt();
+        }
+        drawPosition = drawPosition - Constant.ADJUST_ELEMENT_NUM;
+
+        setPlayerHand(opponent.retHands(drawPosition));
+        opponent.removePlayerHand(drawPosition);
 
     }
 

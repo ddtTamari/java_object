@@ -5,7 +5,8 @@ public class Constant {
     public static final int INITIAL_NUM = 0; //値を初期化する汎用定数
     public static final int ADJUST_ELEMENT_NUM = 1; //要素数などを調整する汎用定数
     public static final int HALF_NUM = 2; //値を半分にするための汎用定数
-    public static final int FINISH_GAME_NUM = 1;
+    public static final int FINISH_GAME_NUM = 1;//ゲームが終了するときの定数
+    public static final int NEXT_PLAYER = 1;//次のプレイヤーを指定するときの定数
 
     //カード用定数
     public static final int MAX_TRUMP_NUM = 53; //総トランプ数用定数

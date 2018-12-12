@@ -39,7 +39,7 @@ public class Player {
 
     public boolean isFinish() {
         boolean finish = false;
-        if (playersHands.size() == Constant.FINISH_GAME_NUM) {
+        if (playersHands.size() == Constant.INITIAL_NUM) {
             finish = true;
         }
         return finish;
@@ -57,7 +57,6 @@ public class Player {
 
     //カードを引く動作を行う
     public void drawPlayersHand(Player opponent) {
-        
         int drawPosition = Constant.INITIAL_NUM;
         while (Constant.INITIAL_NUM >= drawPosition || drawPosition > opponent.handsSize()) {
             System.out.println(mUserName + Constant.ASK_DRAW_POSITION);
@@ -67,7 +66,10 @@ public class Player {
 
         setPlayerHand(opponent.retHands(drawPosition));
         opponent.removePlayerHand(drawPosition);
+    }
 
+    public void checkDrawCard(int drawCardNum) {
+        manageGame.checkDrawCard(drawCardNum);
     }
 
     //手札表示用(デバッグ用)

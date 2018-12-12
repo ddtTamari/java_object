@@ -15,20 +15,22 @@ public class Facilitator {
         askPlayerNum();
         String[] userName = new String[mPlayerNum];
         Player[] player = new Player[mPlayerNum];
-        List<String> playerList = new ArrayList<String>();
+        List<Player> playerList = new ArrayList<Player>();
         List<String> winnerList = new ArrayList<String>();
         boolean finish = false;
         int turnUserID = Constant.INITIAL_NUM;
 
-        makePlayerList(playerList, mPlayerNum, userName);
         initialOperation(userName, player);
+        makePlayerList(playerList, player);
         showHand(userName, player);
 
         //ゲーム終了していないとき
         while (!finish) {
-            drawCard(player, turnUserID, playerList);
+            if (!player[turnUserID].isFinish()) {
+                drawCard(player, turnUserID, playerList);
+            }
             turnUserID++;
-            if (turnUserID == (playerList.size() - Constant.ADJUST_ELEMENT_NUM)) {
+            if (turnUserID > (playerList.size() - Constant.ADJUST_ELEMENT_NUM)) {
                 turnUserID = 0;
             }
             showHand(userName, player);
@@ -55,9 +57,10 @@ public class Facilitator {
     public void askPlayerNum() {
         //プレイヤーの人数を聞く
         System.out.print(Constant.ASK_NUM_OF_PLAYER);
-        //プレイヤー人数用の変数に格納
-        mPlayerNum = userImput.nextInt();
-
+        while (mPlayerNum <= 1 || mPlayerNum > 53) {
+            //プレイヤー人数用の変数に格納
+            mPlayerNum = userImput.nextInt();
+        }
     }
 
     //プレイヤー作成処理
@@ -78,9 +81,9 @@ public class Facilitator {
     }
 
     //playerlistを作成するメソッド
-    public void makePlayerList(List<String> playerList, int playerNum, String[] playerName) {
-        for (int i = Constant.INITIAL_NUM; i < playerNum; i++) {
-            playerList.add(playerName[i]);
+    public void makePlayerList(List<Player> playerList, Player[] player) {
+        for (int playerElement = Constant.INITIAL_NUM; playerElement < mPlayerNum; playerElement++) {
+            playerList.add(player[playerElement]);
         }
     }
 
@@ -114,8 +117,11 @@ public class Facilitator {
     }
 
     //個人の手札を確認させる処理
-    public void makePlayerHandsCheck(int playerId) {
-
+    public void makePlayerHandsCheck(Player[] player, int playerId, List<Player> playerList) {
+        playerList.get(playerId).checkSameNumHand();
+        if (playerList.get(playerId).isFinish()) {
+            playerList.remove(playerId);
+        }
     }
 
     //手札を見せる処理(デバッグ用)
@@ -143,18 +149,21 @@ public class Facilitator {
     }
 
     //他プレイヤーからカードを引く
-    public void drawCard(Player[] player, int drawUserID, List<String> playerList) {
+    public void drawCard(Player[] player, int drawUserID, List<Player> playerList) {
 
         int giveCardUser = drawUserID + Constant.NEXT_PLAYER;
-        if (giveCardUser > playerList.size()) {
+
+        if (giveCardUser > (playerList.size() - Constant.ADJUST_ELEMENT_NUM)) {
             giveCardUser = Constant.INITIAL_NUM;
         }
-        player[drawUserID].drawPlayersHand(player[giveCardUser]);
+        playerList.get(drawUserID).drawPlayersHand(playerList.get(giveCardUser));
+        makePlayerHandsCheck(player, drawUserID, playerList);
+        makePlayerHandsCheck(player, giveCardUser, playerList);
 
     }
 
     //jokerが残る最後の一枚になっているかどうか判定
-    public boolean checkRemainPlayer(List<String> playerList) {
+    public boolean checkRemainPlayer(List<Player> playerList) {
         boolean allFinish = false;
         if (playerList.size() == Constant.FINISH_GAME_NUM) {
             allFinish = true;

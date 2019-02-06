@@ -15,7 +15,9 @@ public class Card {
      ジョーカー：111111
      */
 
+    //全トランプのカードを格納するためのリスト
     private List<Integer> mTrumpCardList = new ArrayList<>();
+    //使用済みカードを格納するための要素数53の配列
     private int[] mUsedCard = new int[Constant.MAX_TRUMP_NUM];
 
     //カード作成とシャッフル処理のメソッド
@@ -42,20 +44,35 @@ public class Card {
 
     //スートと数字を組み合わせ処理
     public void setTrumpCard(int suitNum, int cardNum) {
+        //スートごとに1~13までの数字を入れていく
         switch (suitNum) {
+        //ハートの要素の時
         case Constant.TRUMP_SUIT_HEART_ELEMENT:
+            //カードの数字とスートの数字を合わせトランプリストに格納する
             mTrumpCardList.add(Constant.TRUMP_SUIT_HEART | cardNum);
+            //Switch文を抜ける
             break;
+          //ダイアの要素の時
         case Constant.TRUMP_SUIT_DIAMOND_ELEMENT:
+            //カードの数字とスートの数字を合わせトランプリストに格納する
             mTrumpCardList.add(Constant.TRUMP_SUIT_DIAMOND | cardNum);
+            //Switch文を抜ける
             break;
+          //スペードの要素の時
         case Constant.TRUMP_SUIT_SPADE_ELEMENT:
+            //カードの数字とスートの数字を合わせトランプリストに格納する
             mTrumpCardList.add(Constant.TRUMP_SUIT_SPADE | cardNum);
+            //Switch文を抜ける
             break;
+          //クラブの要素の時
         case Constant.TRUMP_SUIT_CLUB_ELEMENT:
+            //カードの数字とスートの数字を合わせトランプリストに格納する
             mTrumpCardList.add(Constant.TRUMP_SUIT_CLUB | cardNum);
+            //Switch文を抜ける
             break;
+        //上記のケース以外の時
         default:
+            //Switch文を抜ける
             break;
         }
     }

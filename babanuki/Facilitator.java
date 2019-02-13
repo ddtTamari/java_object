@@ -7,22 +7,21 @@ import java.util.Scanner;
 public class Facilitator {
     //キーボードからの入力を取得する
     Scanner userImput = new Scanner(System.in);
+    private List<Player> rankingList = new ArrayList<>(); //勝利したプレイヤーの名前を格納するリスト
 
-    private int mPlayerNum = Constant.INITIAL_NUM; // プレイヤーの人数を格納する変数
+    private int playerNum = Constant.INITIAL_NUM; // プレイヤーの人数を格納する変数
     // トランプ53枚を用意する
     private Card trump = new Card();
 
     //ゲーム開始処理
-    @SuppressWarnings("unused")
     public void doOldMaid() {
 
         //プレイヤーの人数を確認する
         askPlayerNum();
 
-        String[] userName = new String[mPlayerNum]; //ユーザの名前を格納しておく配列
-        Player[] player = new Player[mPlayerNum]; //人数分のプレイヤーを格納する配列
-        List<Player> playerList = new ArrayList<Player>(); //
-        List<String> winnerList = new ArrayList<String>(); //勝利したプレイヤーの名前を格納するリスト
+        String[] userName = new String[playerNum]; //ユーザの名前を格納しておく配列
+        Player[] player = new Player[playerNum]; //人数分のプレイヤーを格納する配列
+        List<Player> playerList = new ArrayList<Player>(); //現在プレイしているプレイヤーリスト
 
         boolean finish = false; //ゲームが終了しているか判断する変数
         int turnUserID = Constant.INITIAL_NUM; //カードを引くプレイヤーのID
@@ -32,9 +31,9 @@ public class Facilitator {
         makePlayerList(playerList, player);
         showHand(userName, player);
 
-        //ゲーム終了していないとき
+        //ゲーム終了していないとき繰り返す処理
         while (!finish) {
-            if (!player[turnUserID].isFinish()) {
+            if (!playerList.get(turnUserID).isFinish()) {
                 drawCard(player, turnUserID, playerList);
             }
             turnUserID++;
@@ -44,10 +43,10 @@ public class Facilitator {
             showHand(userName, player);
             finish = checkRemainPlayer(playerList);
         }
-        if(finish) {
+        if (finish) {
+            callRank(rankingList);
             System.out.println("おわた！");
         }
-
     }
 
     //プレイヤー人数の取得
@@ -55,9 +54,9 @@ public class Facilitator {
         //プレイヤーの人数を聞く
         System.out.print(Constant.ASK_NUM_OF_PLAYER);
         //トランプの最大枚数以上でも1人以下ではない人数にする
-        while (mPlayerNum <= 1 || mPlayerNum > 53) {
+        while (playerNum <= 1 || playerNum > 53) {
             //プレイヤー人数用の変数に格納
-            mPlayerNum = userImput.nextInt();
+            playerNum = userImput.nextInt();
         }
     }
 
@@ -80,7 +79,7 @@ public class Facilitator {
         //スキャナで読み取った名前を格納しておく変数
         String playerName = "";
         //プレイヤーの名前とプレイヤークラスを作成するため人数分繰り返す
-        for (int playerID = Constant.INITIAL_NUM; playerID < mPlayerNum; playerID++) {
+        for (int playerID = Constant.INITIAL_NUM; playerID < playerNum; playerID++) {
             //プレイヤーの名前を聞く文言を表示
             System.out.println(playerID + Constant.ADJUST_ELEMENT_NUM + Constant.ASK_PLAYER_NAME);
             //プレイヤーネームをユーザ入力から取得
@@ -95,7 +94,7 @@ public class Facilitator {
     //playerlistを作成するメソッド
     public void makePlayerList(List<Player> playerList, Player[] player) {
         //全てのプレイヤーを格納していく
-        for (int playerElement = Constant.INITIAL_NUM; playerElement < mPlayerNum; playerElement++) {
+        for (int playerElement = Constant.INITIAL_NUM; playerElement < playerNum; playerElement++) {
             //プレイヤーリストに指定IDのプレイヤークラスを格納
             playerList.add(player[playerElement]);
         }
@@ -116,7 +115,7 @@ public class Facilitator {
             //次のプレイヤーに配る人を変える
             playerID = playerID + 1;
             //プレイヤーがmax行くまで繰り返す
-            if (playerID == mPlayerNum) {
+            if (playerID == playerNum) {
                 //初期化する
                 playerID = Constant.INITIAL_NUM;
             }
@@ -126,7 +125,7 @@ public class Facilitator {
     //全員の手札を確認させる処理
     public void makeAllPlayerHandsCheck(Player[] player) {
         //全てのプレイヤーに手札を確認させる
-        for (int playerID = Constant.INITIAL_NUM; playerID < mPlayerNum; playerID++) {
+        for (int playerID = Constant.INITIAL_NUM; playerID < playerNum; playerID++) {
             //プレイヤーの手札に同じ数字があるか確認させる
             player[playerID].checkSameNumHand();
         }
@@ -143,17 +142,26 @@ public class Facilitator {
 
     //手札が0になってないか確認
     public void checkPlayerIsFinish(int playerId, List<Player> playerList) {
-        //プレイヤーの手札が0枚だったら
-        if (playerList.get(playerId).isFinish()) {
-            //プレイヤーリストから除外する
-            playerList.remove(playerId);
+        //残りプレイヤーが一人じゃないとき
+        if (!checkRemainPlayer(playerList)) {
+            //プレイヤーの手札が0枚だったら
+            if (playerList.get(playerId).isFinish()) {
+                //勝者リストに格納する
+                rankingList.add(playerList.get(playerId));
+                System.out.println(playerList.get(playerId).getPlayerName() + "さんは上がりました。");
+                //プレイヤーリストから除外する
+                playerList.remove(playerId);
+            }
+        } else {
+            //勝者リストに格納する
+            rankingList.add(playerList.get(playerId - Constant.ADJUST_ELEMENT_NUM));
         }
     }
 
     //手札を見せる処理(デバッグ用)
     public void showHand(String[] userName, Player[] player) {
         //プレイヤーの人数分繰り返す
-        for (int i = Constant.INITIAL_NUM; i < mPlayerNum; i++) {
+        for (int i = Constant.INITIAL_NUM; i < playerNum; i++) {
             if (!player[i].isFinish()) {
                 //表示用の名前を格納
                 String user = userName[i];
@@ -196,16 +204,25 @@ public class Facilitator {
         makePlayerHandsCheck(player, drawUserID, playerList);
         //引かれた人の手札が0枚になってるか確認させる
         checkPlayerIsFinish(giveCardUser, playerList);
-
     }
 
-    //jokerが残る最後の一枚になっているかどうか判定
+    //最後のプレイヤーか判定
     public boolean checkRemainPlayer(List<Player> playerList) {
+        //全ての人が終わっているかどうかを判定する変数
         boolean allFinish = false;
+        //プレイヤーリストの人数が残り一人なら
         if (playerList.size() == Constant.FINISH_GAME_NUM) {
+            //残り一人はJokerが残っている人なのでゲーム終了
             allFinish = true;
         }
+        //最後プレイヤーか判定する
         return allFinish;
     }
 
+    public void callRank(List<Player> winnerPlayerList) {
+        for (int playerRank = Constant.INITIAL_NUM; playerRank < playerNum; playerRank++) {
+            String winnerPlayerName = winnerPlayerList.get(playerRank).getPlayerName();
+            System.out.println(playerRank + Constant.ADJUST_ELEMENT_NUM + "位は" + winnerPlayerName + "さんです");
+        }
+    }
 }

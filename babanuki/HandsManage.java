@@ -21,5 +21,6 @@ public class HandsManage {
         //捨てるカ要素ナンバーのカードを手札から削除させる
         playersHand.dropCard(throwCardID);
     }
+    
 
 }

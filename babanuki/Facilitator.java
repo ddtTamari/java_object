@@ -25,6 +25,7 @@ public class Facilitator {
 
         boolean finish = false; // ゲームが終了しているか判断する変数
         int turnUserID = Constant.INITIAL_NUM; // カードを引くプレイヤーのID
+        String turnUserName = "";
 
         // 初回しか行わない動作を呼び出す
         initialOperation(userName, player);
@@ -34,11 +35,15 @@ public class Facilitator {
         // ゲーム終了していないとき繰り返す処理
         while (!finish) {
             if (!playerList.get(turnUserID).isFinish()) {
-                drawCard(player, turnUserID, playerList);
-                checkHandAfterDraw(player, turnUserID, playerList);
+                drawCard(turnUserID, playerList);
+                turnUserName = playerList.get(turnUserID).getPlayerName();
+                checkHandAfterDraw(turnUserID, playerList);
             }
-
-            turnUserID++;
+            if(playerList.size() > 1 ) {
+            if (turnUserName == playerList.get(turnUserID).getPlayerName()) {
+                turnUserID++;
+            }
+            }
             if (turnUserID >= playerList.size()) {
                 turnUserID = 0;
             }
@@ -135,7 +140,7 @@ public class Facilitator {
     }
 
     // 個人の手札を確認させる処理
-    public void makePlayerHandsCheck(Player[] player, int playerId, List<Player> playerList) {
+    public void makePlayerHandsCheck(int playerId, List<Player> playerList) {
         // 指定されたプレイヤーの手札に同じ数字がないか確認
         playerList.get(playerId).checkSameNumHand();
         // 手札が0になっていないか確認させる
@@ -159,7 +164,7 @@ public class Facilitator {
             // 最後の一人の時は問答無用でリストに格納
         } else {
             // 勝者リストに格納する
-            rankingList.add(playerList.get(playerId - Constant.ADJUST_ELEMENT_NUM));
+            rankingList.add(playerList.get(playerId));
         }
     }
 
@@ -193,7 +198,7 @@ public class Facilitator {
     }
 
     // 他プレイヤーからカードを引かせる
-    public void drawCard(Player[] player, int drawUserID, List<Player> playerList) {
+    public void drawCard(int drawUserID, List<Player> playerList) {
 
         // カードを引かれるプレイヤーIDのための変数
         int giveCardUser = drawUserID + Constant.NEXT_PLAYER;
@@ -207,19 +212,25 @@ public class Facilitator {
         playerList.get(drawUserID).drawPlayersHand(playerList.get(giveCardUser));
     }
 
-    public void checkHandAfterDraw(Player[] player, int drawUserID, List<Player> playerList) {
+    public void checkHandAfterDraw(int drawUserID, List<Player> playerList) {
         // カードを引かれるプレイヤーIDのための変数
         int giveCardUser = drawUserID + Constant.NEXT_PLAYER;
+        // カードを引かれるプレイヤーが最大人数より多いときの処理
+        if (giveCardUser > (playerList.size() - Constant.ADJUST_ELEMENT_NUM)) {
+            // 最初のプレイヤーに指定する
+            giveCardUser = Constant.INITIAL_NUM;
+        }
+
         if (drawUserID > giveCardUser) {
             // 引いた人のカードがそろっていないか確認させる
-            makePlayerHandsCheck(player, drawUserID, playerList);
+            makePlayerHandsCheck( drawUserID, playerList);
             // 引かれた人の手札が0枚になってるか確認させる
             checkPlayerIsFinish(giveCardUser, playerList);
         } else {
             // 引かれた人の手札が0枚になってるか確認させる
             checkPlayerIsFinish(giveCardUser, playerList);
             // 引いた人のカードがそろっていないか確認させる
-            makePlayerHandsCheck(player, drawUserID, playerList);
+            makePlayerHandsCheck(drawUserID, playerList);
         }
     }
 

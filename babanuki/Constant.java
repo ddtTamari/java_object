@@ -45,5 +45,12 @@ public class Constant {
     public static final String ASK_DRAW_POSITION = "さん、どの位置のカードを引きますか？";
     public static final String DRAW_USER = "さんから";
     public static final String DRAW_CARD = "番目の位置のカードを引いた";
+    public static final String FINISH_GAME_MASSAGE = "ゲームが終了しました";
+    public static final String FINISH_PLAYER_MASSAGE = "さんは上がりました。";
+    public static final String RANK_MESSAGE = "位は";
+    public static final String PLAYER_MESSAGE = "さんです";
 
+    //プレイヤー
+    public static final int MAX_PLAYER_NUM = 53;//プレイヤーの最大人数
+    public static final int MIN_PLAYER_NUM = 1;//プレイヤーの最小人数
 }

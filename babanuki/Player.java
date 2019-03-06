@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Player {
-    private String mUserName;
-    private BabanukiManage manageBabaGame = new BabanukiManage();
-    private ConvertTrumpCard convertTrump = new ConvertTrumpCard();
-    private List<Integer> playersHands = manageBabaGame.getPlayerHand();
+    private String mUserName;//プレイヤーの名前
+    private BabanukiManage manageBabaGame = new BabanukiManage();//ババ抜きのマネージャー
+    private ConvertTrumpCard convertTrump = new ConvertTrumpCard();//トランプ変換クラス
+    private List<Integer> playersHands = manageBabaGame.getPlayerHand();//プレイヤーの手札
     Scanner userImput = new Scanner(System.in);
 
     //コンストラクタ群
@@ -15,11 +15,15 @@ public class Player {
     public Player() {
     }
 
+    //プレイヤーの名前をセットする
     public Player(String userName) {
+        //プレイヤーの名前をセットする
         this.mUserName = userName;
     }
 
+    //プレイヤーの名前を返却
     public String getPlayerName() {
+        //プレイヤーの名前を返す
         return mUserName;
     }
 
@@ -29,11 +33,13 @@ public class Player {
         manageBabaGame.setPlayerHand(card);
     }
 
+    //プレイヤーの手札を捨てる
     public void removePlayerHand(int cardId) {
+        //プレイヤーの手札を捨てる
         manageBabaGame.throwCard(cardId);
     }
 
-
+    //同じ数字があるかどうか確認
     public void checkSameNumHand() {
         //同じ数字があるかどうかを確認
         manageBabaGame.checkSameNum();
@@ -52,17 +58,16 @@ public class Player {
         return finish;
     }
 
+    //手札のサイズを返却するメソッド
     public int handsSize() {
-        int handSize = playersHands.size();
-        return handSize;
+        //手札の枚数を返す
+        return playersHands.size();
     }
 
     //指定するインデックスのカードを返す
     public int retHands(int getCardId) {
-        //指定されたインデックスのカード格納する変数
-        int card = manageBabaGame.retCard(getCardId);
-        //カードを返却する
-        return card;
+        //指定されたインデックスのカードを返却する
+        return manageBabaGame.retCard(getCardId);
     }
 
     //カードを引く動作を行う
@@ -79,29 +84,34 @@ public class Player {
         //カードの引かれる位置を要素数になるよう合わせる
         drawPosition = drawPosition - Constant.ADJUST_ELEMENT_NUM;
 
-
         //引いたプレイヤーの手札に新たに引いたカードを追加する
         setPlayerHand(opponent.retHands(drawPosition));
         //引かれたプレイヤーのカードを削除する
         opponent.removePlayerHand(drawPosition);
     }
 
-    //引いたカードがそろっていないか確認する
-    public void checkDrawCard(int drawCardNum) {
-        manageBabaGame.checkDrawCard(drawCardNum);
-    }
-
     //手札表示用(デバッグ用)
     public void showHands(String id) {
-        List<Integer> playersHands = manageBabaGame.getPlayerHand();
-        System.out.println(id + Constant.USER_HAS + playersHands.size() + Constant.NUM_OF_USER_HANDS);
-        for (int elements : playersHands) {
-            String suit = convertTrump.convertTrumpSuit(elements);
-            String num = convertTrump.convertTrumpNum(String.valueOf(elements));
-            System.out.print(suit + num);
-            System.out.print("|");
-        }
+        //プレイヤーの手札枚数の表示
+        System.out.println(id + Constant.USER_HAS + handsSize() + Constant.NUM_OF_USER_HANDS);
+        //手札をプレイヤーにわかるように変換する
+        convertTrump();
+        //改行する
         System.out.println();
     }
 
+    //スート数字変換
+    public void convertTrump() {
+        //全ての手札を表示
+        for (int elements : playersHands) {
+            //スート変換
+            String suit = convertTrump.convertTrumpSuit(elements);
+            //数字変換
+            String num = convertTrump.convertTrumpNum(String.valueOf(elements));
+            //カード名を表示
+            System.out.print(suit + num);
+            //仕切りを表示
+            System.out.print("|");
+        }
+    }
 }

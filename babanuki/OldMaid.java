@@ -2,11 +2,11 @@ package babanuki;
 
 public class OldMaid {
 
-    //変数一覧//
-
+    //メインメソッド
     public static void main(String[] args) {
-
+        //進行役クラスを作成
         Facilitator facilitator = new Facilitator();
+        //ゲームをスタートする
         facilitator.doOldMaid();
     }
 

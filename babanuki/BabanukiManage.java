@@ -3,8 +3,8 @@ package babanuki;
 import java.util.List;
 
 public class BabanukiManage extends HandsManage {
-    private List<Integer> playerHands = getPlayerHand();
-    private ConvertTrumpCard convertTrump = new ConvertTrumpCard();
+    private List<Integer> playerHands = getPlayerHand();//プレイヤーの手を入れるメソッド
+    private ConvertTrumpCard convertTrump = new ConvertTrumpCard();//文字列変換クラス
 
     //最初に同じ番号があるかどうかを確認するメソッド
     public void checkSameNum() {
@@ -41,7 +41,7 @@ public class BabanukiManage extends HandsManage {
     }
 
     //同じ数字かどうか確認する
-    public boolean judgeSameNum(int handsCheckCardNum, int handsCardNum) {
+    private boolean judgeSameNum(int handsCheckCardNum, int handsCardNum) {
         //同じ数字かどうかを格納する変数
         boolean sameNum = false;
         //受け取ったカードと、ANDで立っているフラグの数字が一緒だったなら同じ数字になる
@@ -54,13 +54,15 @@ public class BabanukiManage extends HandsManage {
     }
 
     //手札を捨てる処理
-    public void throwSameCard(int throwCardIdOne, int throwCardIdTwo) {
+    private void throwSameCard(int throwCardIdOne, int throwCardIdTwo) {
+        //要素が大きいほうから消す
         if (throwCardIdOne < throwCardIdTwo) {
-            throwCard(throwCardIdTwo);
-            throwCard(throwCardIdOne);
+            //左の引数が大きいほうの要素数になるようカードを消す
+            throwCard(throwCardIdTwo, throwCardIdOne);
+            //一枚目の位置が二枚目の位置より大きいとき
         } else {
-            throwCard(throwCardIdOne);
-            throwCard(throwCardIdTwo);
+            //左の引数が大きいほうの要素数になるようカードを消す
+            throwCard(throwCardIdOne, throwCardIdTwo);
         }
     }
 
@@ -69,6 +71,5 @@ public class BabanukiManage extends HandsManage {
         //指定された手札のindexの数字を返す
         return playerHands.get(getCardId);
     }
-
 
 }

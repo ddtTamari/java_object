@@ -17,8 +17,6 @@ public class Card {
 
     //全トランプのカードを格納するためのリスト
     private List<Integer> mTrumpCardList = new ArrayList<>();
-    //使用済みカードを格納するための要素数53の配列
-    private int[] mUsedCard = new int[Constant.MAX_TRUMP_NUM];
 
     //カード作成とシャッフル処理のメソッド
     public void shuffleCards() {
@@ -29,7 +27,7 @@ public class Card {
     }
 
     //ArrayListにトランプ53枚用意する
-    public void setTrumpList() {
+    private void setTrumpList() {
         //スートの数だけ1~13の数字を生成するのを繰り返す
         for (int suitNum = Constant.INITIAL_NUM; suitNum < Constant.TRUMP_SUIT_NUM; suitNum++) {
             //スートに対して1~13までの数字を当てはめてく
@@ -43,7 +41,7 @@ public class Card {
     }
 
     //スートと数字を組み合わせ処理
-    public void setTrumpCard(int suitNum, int cardNum) {
+    private void setTrumpCard(int suitNum, int cardNum) {
         //スートごとに1~13までの数字を入れていく
         switch (suitNum) {
         //ハートの要素の時
@@ -52,19 +50,19 @@ public class Card {
             mTrumpCardList.add(Constant.TRUMP_SUIT_HEART | cardNum);
             //Switch文を抜ける
             break;
-          //ダイアの要素の時
+        //ダイアの要素の時
         case Constant.TRUMP_SUIT_DIAMOND_ELEMENT:
             //カードの数字とスートの数字を合わせトランプリストに格納する
             mTrumpCardList.add(Constant.TRUMP_SUIT_DIAMOND | cardNum);
             //Switch文を抜ける
             break;
-          //スペードの要素の時
+        //スペードの要素の時
         case Constant.TRUMP_SUIT_SPADE_ELEMENT:
             //カードの数字とスートの数字を合わせトランプリストに格納する
             mTrumpCardList.add(Constant.TRUMP_SUIT_SPADE | cardNum);
             //Switch文を抜ける
             break;
-          //クラブの要素の時
+        //クラブの要素の時
         case Constant.TRUMP_SUIT_CLUB_ELEMENT:
             //カードの数字とスートの数字を合わせトランプリストに格納する
             mTrumpCardList.add(Constant.TRUMP_SUIT_CLUB | cardNum);
@@ -78,20 +76,15 @@ public class Card {
     }
 
     //トランプリストをシャッフル
-    public void shuffleTrumpList() {
+    private void shuffleTrumpList() {
+        //カードをシャッフルする
         Collections.shuffle(mTrumpCardList);
     }
 
-    //使用済みカードの登録
-    public void imputUsedCardList(int imputCardNum, int elementNum) {
-        mUsedCard[elementNum] = imputCardNum;
-    }
-
-    //カードを呼び出し元に渡す()
+    //カードを呼び出し元に渡す
     public int returnCard(int element) {
-        int ret = Constant.INITIAL_NUM;
-        ret = mTrumpCardList.get(element).intValue();
-        return ret;
+        //カードを返す
+        return mTrumpCardList.get(element).intValue();
     }
 
 }

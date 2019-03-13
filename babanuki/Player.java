@@ -8,7 +8,7 @@ public class Player {
     private BabanukiManage manageBabaGame = new BabanukiManage();//ババ抜きのマネージャー
     private ConvertTrumpCard convertTrump = new ConvertTrumpCard();//トランプ変換クラス
     private List<Integer> playersHands = manageBabaGame.getPlayerHand();//プレイヤーの手札
-    Scanner userImput = new Scanner(System.in);
+    Scanner userImput = new Scanner(System.in);//引くカードの位置を取得
 
     //コンストラクタ群
 
@@ -33,7 +33,7 @@ public class Player {
         manageBabaGame.setPlayerHand(card);
     }
 
-    //プレイヤーの手札を捨てる
+    //引かれた手札を捨てる
     public void removePlayerHand(int cardId) {
         //プレイヤーの手札を捨てる
         manageBabaGame.throwCard(cardId);

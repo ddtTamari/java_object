@@ -18,6 +18,13 @@ public class Card {
     //全トランプのカードを格納するためのリスト
     private List<Integer> mTrumpCardList = new ArrayList<>();
 
+    /**
+     * メソッド名：shuffleCards
+     * @author Tamari
+     * @param
+     * @return
+     * 処理内容：カード作成とシャッフルを行う
+     */
     //カード作成とシャッフル処理のメソッド
     public void shuffleCards() {
         //トランプリストを作成
@@ -80,7 +87,13 @@ public class Card {
         //カードをシャッフルする
         Collections.shuffle(mTrumpCardList);
     }
-
+    /**
+     * メソッド名：returnCard
+     * @author Tamari
+     * @param  element：カードの要素数
+     * @return mTrumpCardList.get(element).intValue()：指定されたカードの値(Integer)
+     * 処理内容：カード作成とシャッフルを行う
+     */
     //カードを呼び出し元に渡す
     public int returnCard(int element) {
         //カードを返す

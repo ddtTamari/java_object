@@ -11,7 +11,13 @@ public class Facilitator {
 
     //  トランプ53枚を用意する
     private Card trump = new Card();
-
+    /**
+     * メソッド名：doOldMaid
+     * @author Tamari
+     * @param
+     * @return
+     * 処理内容：ババ抜きを行う
+     */
     // ゲーム開始処理
     public void doOldMaid() {
         int playerNum = Constant.INITIAL_NUM; //  プレイヤーの人数を格納する変数

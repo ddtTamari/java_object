@@ -6,6 +6,13 @@ public class BabanukiManage extends HandsManage {
     private List<Integer> playerHands = getPlayerHand();//プレイヤーの手を入れるメソッド
     private ConvertTrumpCard convertTrump = new ConvertTrumpCard();//文字列変換クラス
 
+    /**
+     * メソッド名：checkSameNum
+     * @author Tamari
+     * @param
+     * @return
+     * 処理内容：カードが配られたときに手札を確認するメソッド
+     */
     //最初に同じ番号があるかどうかを確認するメソッド
     public void checkSameNum() {
         int handsCheckCardNum = Constant.INITIAL_NUM;
@@ -65,7 +72,13 @@ public class BabanukiManage extends HandsManage {
             throwCard(throwCardIdOne, throwCardIdTwo);
         }
     }
-
+    /**
+     * メソッド名：retCard
+     * @author Tamari
+     * @param  getCardId : カードの要素番号
+     * @return playerHands.get(getCardId) : 引数で受け取ったカードの数字を返す
+     * 処理内容：指定された要素番号のカードの値を返す
+     */
     //指定されたindexの数字を返す
     public int retCard(int getCardId) {
         //指定された手札のindexの数字を返す

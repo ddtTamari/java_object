@@ -10,6 +10,14 @@ public class DiscardTable {
     //変換用クラス
     private ConvertTrumpCard convertTrump = new ConvertTrumpCard();
 
+    /**
+     * メソッド名：DiscardTable
+     * @author Tamari
+     * @param  discardCard : カードの値
+     *          discardCardTwo：カードの値2
+     * @return
+     * 処理内容：捨てられたカードリストに登録する
+     */
     //そろって捨てられたカードを登録する
     public void setDiscardList(int discardCard, int discardCardTwo) {
         //捨てられたカードリストに追加
@@ -20,6 +28,14 @@ public class DiscardTable {
         showList(discardCard, discardCardTwo);
     }
 
+    /**
+     * メソッド名：showList
+     * @author Tamari
+     * @param  discardCard : カードの値
+     *          discardCardTwo：カードの値2
+     * @return
+     * 処理内容：捨てられたカードを表示する
+     */
     //捨てられたカードがそろったカードか確認するためのメソッド
     public void showList(int discardCard, int discardCardTwo) {
         //捨てられたカードを表示する

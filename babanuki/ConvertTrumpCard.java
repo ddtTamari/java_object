@@ -1,6 +1,13 @@
 package babanuki;
 
 public class ConvertTrumpCard {
+    /**
+     * メソッド名：convertTrumpSuit
+     * @author Tamari
+     * @param  card : カードの値
+     * @return suit : スートのマーク
+     * 処理内容：数値で格納されているカードの値をスートに変換する
+     */
     //トランプのスート変換(デバッグ用)
     public String convertTrumpSuit(int card) {
         //スート用変数
@@ -30,24 +37,14 @@ public class ConvertTrumpCard {
         return suit;
     }
 
-    // カードを数字変換(デバッグ用)
-    public String convertTrumpNum(String card) {
-        int cardNum = Integer.valueOf(card);
-        ///jokerの時は数字を変換しないのではじく
-        if (cardNum != Constant.TRUMP_SUIT_JOKER) {
-            //スートのビットを消す
-            cardNum = cardNum & Constant.TRUMP_LOSE_SUIT;
-            //数字を文字列にして返す
-            card = String.valueOf(cardNum);
-            //ジョーかの時は数字の部分を消す
-        } else {
-            //数字の部分を消す
-            card = "";
-        }
-        //カードを数字のみにした値を返す
-        return card;
-    }
 
+    /**
+     * メソッド名：convertTrumpNum
+     * @author Tamari
+     * @param  card : カードの値
+     * @return card : トランプの数字
+     * 処理内容：数値で格納されているカードの値を数字のみに変換する
+     */
     // カードを数字のみにするメソッド
     public int convertTrumpNum(int card) {
         //ジョーカーじゃなければ

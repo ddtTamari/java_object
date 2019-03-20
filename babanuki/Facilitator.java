@@ -68,7 +68,7 @@ public class Facilitator {
             finish = checkRemainPlayer(playerList, turnUserID);
         }
         //勝った順でメッセージ表示
-        callRank(rankingList, playerNum);
+        callRank(playerNum);
         //ゲーム処理の終了メッセージ表示
         System.out.println(Constant.FINISH_GAME_MASSAGE);
 
@@ -271,12 +271,12 @@ public class Facilitator {
     }
 
     //ランキングを表示する処理
-    private void callRank(List<Player> winnerPlayerList, int playerNum) {
+    private void callRank(int playerNum) {
         String winnerPlayerName = "";
         //全てのプレイヤーをコールする
         for (int playerRank = Constant.INITIAL_NUM; playerRank < playerNum; playerRank++) {
             //ランクの上から順に名前を格納する
-            winnerPlayerName = winnerPlayerList.get(playerRank).getPlayerName();
+            winnerPlayerName = rankingList.get(playerRank).getPlayerName();
             //プレイヤーの順位を表示
             System.out.println(playerRank + Constant.ADJUST_ELEMENT_NUM + Constant.RANK_MESSAGE + winnerPlayerName
                     + Constant.PLAYER_MESSAGE);

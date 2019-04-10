@@ -36,9 +36,9 @@ public class Card {
     //ArrayListにトランプ53枚用意する
     private void setTrumpList() {
         //スートの数だけ1~13の数字を生成するのを繰り返す
-        for (int suitNum = Constant.INITIAL_NUM; suitNum < Constant.TRUMP_SUIT_NUM; suitNum++) {
+        for (int suitNum = 0; suitNum < Constant.TRUMP_SUIT_NUM; suitNum++) {
             //スートに対して1~13までの数字を当てはめてく
-            for (int trumpNum = Constant.INITIAL_NUM; trumpNum < Constant.MAX_NUMBER_OF_TRUMP; ++trumpNum) {
+            for (int trumpNum = 0; trumpNum < Constant.MAX_NUMBER_OF_TRUMP; ++trumpNum) {
                 //スートによって数字を決める
                 setTrumpCard(suitNum, trumpNum + Constant.ADJUST_ELEMENT_NUM);
             }

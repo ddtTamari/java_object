@@ -4,19 +4,19 @@ import java.util.List;
 
 public class HandsManage {
     //プレイヤーの手札用クラス
-    private PlayersHand playersHand = new PlayersHand();
+    private PlayersHand mPlayersHand = new PlayersHand();
 
     /**
-     * メソッド名：setPlayerHand
+     * メソッド名：addPlayerHand
      * @author Tamari
      * @param  card：カードの値
      * @return
      * 処理内容：カードをプレイヤーの手札に登録する
      */
     //プレイヤーの手札に登録する
-    public void setPlayerHand(int card) {
+    public void addPlayerHand(int card) {
         //手札に登録する
-        playersHand.setPlayerHand(card);
+        mPlayersHand.addPlayerHand(card);
     }
 
     /**
@@ -29,11 +29,11 @@ public class HandsManage {
     //プレイヤーの手札を返すメソッド
     public List<Integer> getPlayerHand() {
         //手札クラスから手札を返す
-        return playersHand.getPlayerHand();
+        return mPlayersHand.getPlayerHand();
     }
 
     /**
-     * メソッド名：setPlayerHand
+     * メソッド名：throwCard
      * @author Tamari
      * @param  throwCardID：引かれたカードの要素番号
      * @return
@@ -42,7 +42,7 @@ public class HandsManage {
     //手札から引かれたときの処理
     public void throwCard(int throwCardID) {
         //捨てるカ要素ナンバーのカードを手札から削除させる
-        playersHand.dropCard(throwCardID);
+        mPlayersHand.dropCard(throwCardID);
     }
 
     /**
@@ -56,7 +56,7 @@ public class HandsManage {
     //そろった手札をテーブルに捨てる処理
     public void throwCard(int throwCardID, int throwCardIDTwo) {
         //捨てるカ要素ナンバーのカードを手札から削除させる
-        playersHand.dropCard(throwCardID, throwCardIDTwo);
+        mPlayersHand.dropCard(throwCardID, throwCardIDTwo);
     }
 
 }

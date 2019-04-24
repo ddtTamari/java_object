@@ -3,8 +3,8 @@ package babanuki;
 import java.util.List;
 
 public class BabanukiManage extends HandsManage {
-    private List<Integer> playerHands = getPlayerHand();//プレイヤーの手を入れるメソッド
-    private ConvertTrumpCard convertTrump = new ConvertTrumpCard();//文字列変換クラス
+    private List<Integer> mPlayerHands = getPlayerHand();//プレイヤーの手を入れるメソッド
+    private ConvertTrumpCard mConvertTrump = new ConvertTrumpCard();//文字列変換クラス
 
     /**
      * メソッド名：checkSameNum
@@ -15,31 +15,31 @@ public class BabanukiManage extends HandsManage {
      */
     //最初に同じ番号があるかどうかを確認するメソッド
     public void checkSameNum() {
-        int handsCheckCardNum = Constant.INITIAL_NUM;
+        int handsCheckCardNum = Constant.CARD_INITIAL_NUM;
         //もともとの手札の数字だけで見るための変数
-        int handsCardNum = Constant.INITIAL_NUM;
+        int handsCardNum = Constant.CARD_INITIAL_NUM;
         //同じ数字かどうか
-        boolean sameNum = false;
+        boolean isSameNum = false;
 
         //手札の数だけ確認を行う
-        for (int handsId = Constant.INITIAL_NUM; handsId < playerHands.size(); handsId++) {
+        for (int handsId = 0; handsId < mPlayerHands.size(); handsId++) {
             //手札の確認を行う対象のカードを数字のみにする
-            handsCheckCardNum = convertTrump.convertTrumpNum(playerHands.get(handsId).intValue());
+            handsCheckCardNum = mConvertTrump.convertTrumpNum(mPlayerHands.get(handsId).intValue());
             //全ての手札の枚数分確認を行う
-            for (int checkId = Constant.INITIAL_NUM; checkId < playerHands.size(); checkId++) {
+            for (int checkId = 0; checkId < mPlayerHands.size(); checkId++) {
                 //今見ているカードと同じIDのカードは除外する
                 if (handsId != checkId) {
                     //要素番号の手札を数字のみにする
-                    handsCardNum = convertTrump.convertTrumpNum(playerHands.get(checkId).intValue());
+                    handsCardNum = mConvertTrump.convertTrumpNum(mPlayerHands.get(checkId).intValue());
                     //同じ数字かどうかを判定する
-                    sameNum = judgeSameNum(handsCheckCardNum, handsCardNum);
+                    isSameNum = isSameNum(handsCheckCardNum, handsCardNum);
                 }
                 //同じ数字だったら
-                if (sameNum) {
+                if (isSameNum) {
                     //同じ数字だった手札リストの数字を捨てる
                     throwSameCard(handsId, checkId);
                     //カードを捨てて手札のIDが変わったので確認する手札のIDをリセットする
-                    handsId = Constant.INITIAL_NUM;
+                    handsId = Constant.CARD_INITIAL_NUM;
                     //対象のIDのカードはもう捨てたので処理を抜ける
                     break;
                 }
@@ -48,16 +48,16 @@ public class BabanukiManage extends HandsManage {
     }
 
     //同じ数字かどうか確認する
-    private boolean judgeSameNum(int handsCheckCardNum, int handsCardNum) {
+    private boolean isSameNum(int handsCheckCardNum, int handsCardNum) {
         //同じ数字かどうかを格納する変数
-        boolean sameNum = false;
+        boolean isSameNum = false;
         //受け取ったカードと、ANDで立っているフラグの数字が一緒だったなら同じ数字になる
         if (handsCheckCardNum == handsCardNum) {
             //同じ数字にTrueを返す
-            sameNum = true;
+            isSameNum = true;
         }
         //同じ数字かどうかを返す
-        return sameNum;
+        return isSameNum;
     }
 
     //手札を捨てる処理
@@ -82,7 +82,7 @@ public class BabanukiManage extends HandsManage {
     //指定されたindexの数字を返す
     public int retCard(int getCardId) {
         //指定された手札のindexの数字を返す
-        return playerHands.get(getCardId);
+        return mPlayerHands.get(getCardId);
     }
 
 }

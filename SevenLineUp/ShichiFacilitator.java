@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class ShichiFacilitator {
 
-    private List<Player> mPlayerList = new ArrayList<Player>();
+    private List<ShichinarabePlayer> mPlayerList = new ArrayList<ShichinarabePlayer>();
 
     int mPlayerNum = Constant.PLAYER_INITIAL_NUM;
 
@@ -23,13 +23,13 @@ public class ShichiFacilitator {
 
     }
 
-    private List<Player> initialSetGameSetting() {
+    private List<ShichinarabePlayer> initialSetGameSetting() {
         int playerNum = Constant.PLAYER_INITIAL_NUM; //  プレイヤーの人数を格納する変数
 
         // プレイヤーの人数を確認する
         playerNum = setPlayerNum();
 
-        List<Player> cPlayerList = new ArrayList<Player>(playerNum); // 現在プレイしているプレイヤーリスト
+        List<ShichinarabePlayer> cPlayerList = new ArrayList<ShichinarabePlayer>(playerNum); // 現在プレイしているプレイヤーリスト
 
         //プレイヤーの人数になるまで繰り返す
         for (int playerCount = 0; playerCount < playerNum; playerCount++) {

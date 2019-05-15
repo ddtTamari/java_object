@@ -1,7 +1,6 @@
 package shichinarabe;
 
 public class ShichinarabePlayer extends Player {
-    private SevenUpMng mManageSevenUp = new SevenUpMng();//七並べマネージャー
 
     /**
      * メソッド名：addPlayerHand
@@ -13,7 +12,14 @@ public class ShichinarabePlayer extends Player {
     //引数に渡されたカードを手札に登録
     public void addPlayerHand(int card) {
         //手札に登録する
-        //mManageSevenUp.addPlayerHand(card);
+        mPlayerHands.addPlayerHand(card);
+    }
+
+    public boolean checkHand() {
+        boolean ret = false;
+
+        return ret ;
+
     }
 
 }

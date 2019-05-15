@@ -1,27 +1,27 @@
-Shichinarabe(MainƒNƒ‰ƒX)
+Shichinarabe(Mainã‚¯ãƒ©ã‚¹)
 ====================================
-Constant (’è”ƒNƒ‰ƒX)
-MessageConstant(ƒƒbƒZ[ƒW’è”ƒNƒ‰ƒX)
+Constant (å®šæ•°ã‚¯ãƒ©ã‚¹)
+MessageConstant(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å®šæ•°ã‚¯ãƒ©ã‚¹)
 ====================================
-Card(ƒJ[ƒhƒNƒ‰ƒX)
+Card(ã‚«ãƒ¼ãƒ‰ã‚¯ãƒ©ã‚¹)
 ====================================
-PlayerInterface(ƒvƒŒƒCƒ„[ƒCƒ“ƒ^[ƒtƒF[ƒX)
-EŽèŽD‚ðŠm”F‚·‚é
-EŽèŽD‚Ì–‡”‚ðŽæ“¾
-EŽèŽD‚ðŽÌ‚Ä‚é
-Eã‚ª‚Á‚½‚©‚Ç‚¤‚©‚ðŠm”F‚·‚é
-Player(ƒvƒŒƒCƒ„[‚Ì’ŠÛƒNƒ‰ƒXAƒvƒŒƒCƒ„[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ðŒp³)
-EŽèŽD‚ðŠm”F‚·‚é(’ŠÛƒƒ\ƒbƒh)
-EŽèŽD‚Ì–‡”‚ðŽæ“¾(ŽÀ‘•)
-EŽèŽD‚ðŽÌ‚Ä‚é(ŽÀ‘•)
-Eã‚ª‚Á‚½‚©‚Ç‚¤‚©‚ðŠm”F‚·‚é(ŽÀ‘•)
-ShichinarabePlayer(PlayerƒNƒ‰ƒX‚ðŒp³)
+PlayerInterface(ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹)
+ãƒ»æ‰‹æœ­ã‚’ç¢ºèªã™ã‚‹
+ãƒ»æ‰‹æœ­ã®æžšæ•°ã‚’å–å¾—
+ãƒ»æ‰‹æœ­ã‚’æ¨ã¦ã‚‹
+ãƒ»ä¸ŠãŒã£ãŸã‹ã©ã†ã‹ã‚’ç¢ºèªã™ã‚‹
+Player(ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æŠ½è±¡ã‚¯ãƒ©ã‚¹ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã‚’ç¶™æ‰¿)
+ãƒ»æ‰‹æœ­ã‚’ç¢ºèªã™ã‚‹(æŠ½è±¡ãƒ¡ã‚½ãƒƒãƒ‰)
+ãƒ»æ‰‹æœ­ã®æžšæ•°ã‚’å–å¾—(å®Ÿè£…)
+ãƒ»æ‰‹æœ­ã‚’æ¨ã¦ã‚‹(å®Ÿè£…)
+ãƒ»ä¸ŠãŒã£ãŸã‹ã©ã†ã‹ã‚’ç¢ºèªã™ã‚‹(å®Ÿè£…)
+ShichinarabePlayer(Playerã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿)
 ====================================
-PlayerHand(ƒvƒŒƒCƒ„[‚ÌŽèŽDƒNƒ‰ƒX)
+PlayerHand(ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ‰‹æœ­ã‚¯ãƒ©ã‚¹)
 ====================================
-ShichiFacilitator(Žµ•À‚×—pis–ðƒNƒ‰ƒX)
+ShichiFacilitator(ä¸ƒä¸¦ã¹ç”¨é€²è¡Œå½¹ã‚¯ãƒ©ã‚¹)
 ====================================
-DiscardTable(ƒe[ƒuƒ‹ƒNƒ‰ƒX)
+DiscardTable(ãƒ†ãƒ¼ãƒ–ãƒ«ã‚¯ãƒ©ã‚¹)
 
 
 

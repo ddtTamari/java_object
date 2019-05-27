@@ -6,8 +6,6 @@ import java.util.List;
 public class PlayerHands {
     //プレイヤーの手札のリスト
     private List<Integer> mPlayerHandsList = new ArrayList<>();
-    //捨てるカードを登録するクラス
-    private DiscardTable mDropTable = new DiscardTable();
 
     //コンストラクタ
     public void playersHands() {
@@ -50,6 +48,29 @@ public class PlayerHands {
     public List<Integer> getPlayerHand() {
         //プレイヤーの手札を返す
         return mPlayerHandsList;
+    }
+
+    public boolean hasTheNum(int trumpId, int targetNum) {
+        boolean hasNum = false;
+
+        if ((mPlayerHandsList.get(trumpId) & Constant.TRUMP_SUIT_HEART_ELEMENT) == targetNum) {
+            hasNum = true;
+        } else if ((mPlayerHandsList.get(trumpId)
+                & Constant.TRUMP_SUIT_DIAMOND_ELEMENT) == targetNum) {
+            hasNum = true;
+        } else if ((mPlayerHandsList.get(trumpId)
+                & Constant.TRUMP_SUIT_SPADE_ELEMENT) == targetNum) {
+            hasNum = true;
+        } else if ((mPlayerHandsList.get(trumpId)
+                & Constant.TRUMP_SUIT_CLUB_ELEMENT) == targetNum) {
+            hasNum = true;
+        }
+
+        return hasNum;
+    }
+
+    public int getTrumpNum(int targetElement) {
+        return mPlayerHandsList.get(targetElement);
     }
 
 }

@@ -19,7 +19,7 @@ public class ShichiFacilitator {
         //プレイヤーリスト作成
         mPlayerList = initialSetGameSetting();
 
-        initialAction(trumpDeck, mPlayerNum);
+        initialAction(mPlayerList, trumpDeck, mPlayerNum);
 
     }
 
@@ -55,12 +55,12 @@ public class ShichiFacilitator {
         return intPlayerNum;
     }
 
-    private void initialAction(Card trump, int playerNum) {
+    private void initialAction(List<ShichinarabePlayer> players, Card trump, int playerNum) {
 
         // カードを配る
         distribution(trump, mPlayerNum);
         // 7を場に出す
-
+        putDownACardSeven(playerNum, players);
     }
 
     // 配る処理
@@ -90,6 +90,16 @@ public class ShichiFacilitator {
     private void distributionPlayer(int card, int playerID) {
         // 引数に渡されたカードをプレイヤーに渡す
         mPlayerList.get(playerID).addPlayerHand(card);
+    }
+
+    //７のカードを出させる
+    private void putDownACardSeven(int playerNum, List<ShichinarabePlayer> players) {
+        for (int playerLoop = 0; playerLoop < playerNum; playerLoop++) {
+            if (players.get(playerLoop).getTheNumHand(Constant.TRUMP_NUMBER_SEVEN) != Constant.CARD_INITIAL_NUM) {
+
+            }
+        }
+
     }
 
     // カードクラスから指定された番号のカードを返す

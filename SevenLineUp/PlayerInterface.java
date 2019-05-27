@@ -3,7 +3,7 @@ package shichinarabe;
 public interface PlayerInterface {
 
     //手札を確認
-    public boolean checkHand();
+    public int getTheNumHand(int targetNum);
 
     //手札の枚数を確認
     public int getNumOfHand();

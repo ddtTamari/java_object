@@ -15,10 +15,22 @@ public class ShichinarabePlayer extends Player {
         mPlayerHands.addPlayerHand(card);
     }
 
-    public boolean checkHand() {
-        boolean ret = false;
+    //７
+    public int getTheNumHand(int targetNum) {
+        int hasNum = 0;
+        for (int handLoop = 0; handLoop < mPlayerHands.getPlayerHand().size(); handLoop++) {
+            if (checkHand(handLoop, targetNum)) {
+                hasNum = mPlayerHands.getTrumpNum(handLoop);
+                mPlayerHands.dropCard(handLoop);
+            }
+        }
+        return hasNum;
+    }
 
-        return ret ;
+    private boolean checkHand(int trumpId, int targetNum) {
+        boolean ret = false;
+        mPlayerHands.hasTheNum(trumpId, targetNum);
+        return ret;
 
     }
 

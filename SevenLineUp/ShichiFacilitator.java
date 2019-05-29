@@ -24,41 +24,40 @@ public class ShichiFacilitator {
     }
 
     private List<ShichinarabePlayer> initialSetGameSetting() {
-        int playerNum = Constant.PLAYER_INITIAL_NUM; //  プレイヤーの人数を格納する変数
-
         // プレイヤーの人数を確認する
-        playerNum = setPlayerNum();
+        setPlayerNum();
 
-        List<ShichinarabePlayer> cPlayerList = new ArrayList<ShichinarabePlayer>(playerNum); // 現在プレイしているプレイヤーリスト
+        List<ShichinarabePlayer> cPlayerList = new ArrayList<ShichinarabePlayer>(mPlayerNum); // 現在プレイしているプレイヤーリスト
 
         //プレイヤーの人数になるまで繰り返す
-        for (int playerCount = 0; playerCount < playerNum; playerCount++) {
+        for (int playerCount = 0; playerCount < mPlayerNum; playerCount++) {
             cPlayerList.add(new ShichinarabePlayer());
         }
 
         return cPlayerList;
     }
 
-    // プレイヤー人数の取得
-    private int setPlayerNum() {
+    // プレイヤー人数の設定
+    private void setPlayerNum() {
 
-        int intPlayerNum = 0;//戻り値用
         Random rndNum = new Random(); //Playerの数をランダムで決めるため宣言
 
         // プレイヤー人数用の変数に格納
-        intPlayerNum = rndNum.nextInt(Constant.MAX_PLAYER_NUM) + 1;
+        mPlayerNum = rndNum.nextInt(Constant.MAX_PLAYER_NUM) + 3;
 
         //プレイ人数を表示
-        System.out.println(intPlayerNum + MessageConstant.OUTPUT_PLAYER_NUM_MESSAGE);
-
-        //プレイヤーの人数を返す
-        return intPlayerNum;
+        System.out.println(mPlayerNum + MessageConstant.OUTPUT_PLAYER_NUM_MESSAGE);
     }
 
     private void initialAction(List<ShichinarabePlayer> players, Card trump, int playerNum) {
 
         // カードを配る
-        distribution(trump, mPlayerNum);
+        distribution(trump, playerNum);
+        //デバッグ用
+        for (ShichinarabePlayer player : players) {
+            player.showHands();
+        }
+
         // 7を場に出す
         putDownACardSeven(playerNum, players);
     }
@@ -95,9 +94,7 @@ public class ShichiFacilitator {
     //７のカードを出させる
     private void putDownACardSeven(int playerNum, List<ShichinarabePlayer> players) {
         for (int playerLoop = 0; playerLoop < playerNum; playerLoop++) {
-            if (players.get(playerLoop).getTheNumHand(Constant.TRUMP_NUMBER_SEVEN) != Constant.CARD_INITIAL_NUM) {
-
-            }
+            players.get(playerLoop).getTheTargetNumHand(Constant.TRUMP_NUMBER_SEVEN);
         }
 
     }
@@ -107,4 +104,5 @@ public class ShichiFacilitator {
         // 加える手札として返す
         return trump.returnCard(element);
     }
+
 }

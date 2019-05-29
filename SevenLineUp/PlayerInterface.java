@@ -1,9 +1,10 @@
 package shichinarabe;
 
 public interface PlayerInterface {
+    public ConvertTrumpCard convertTrump = new ConvertTrumpCard();
 
     //手札を確認
-    public int getTheNumHand(int targetNum);
+    public boolean checkHand(int trumpId, int targetNum);
 
     //手札の枚数を確認
     public int getNumOfHand();

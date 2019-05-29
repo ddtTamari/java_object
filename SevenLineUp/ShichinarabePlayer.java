@@ -1,5 +1,8 @@
 package shichinarabe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ShichinarabePlayer extends Player {
 
     /**
@@ -15,23 +18,40 @@ public class ShichinarabePlayer extends Player {
         mPlayerHands.addPlayerHand(card);
     }
 
-    //７
-    public int getTheNumHand(int targetNum) {
-        int hasNum = 0;
+    //
+    public List<Integer> getTheTargetNumHand(int targetNum) {
+        List<Integer> havingTargetNum = new ArrayList<Integer>(Constant.CARD_INITIAL_NUM);
+
         for (int handLoop = 0; handLoop < mPlayerHands.getPlayerHand().size(); handLoop++) {
             if (checkHand(handLoop, targetNum)) {
-                hasNum = mPlayerHands.getTrumpNum(handLoop);
-                mPlayerHands.dropCard(handLoop);
+                havingTargetNum.add(mPlayerHands.getTrumpNum(handLoop));
             }
         }
-        return hasNum;
+
+        for (Integer hitElementList : havingTargetNum) {
+            mPlayerHands.dropCard(hitElementList);
+        }
+
+        return havingTargetNum;
     }
 
-    private boolean checkHand(int trumpId, int targetNum) {
+    public boolean checkHand(int trumpId, int targetNum) {
         boolean ret = false;
-        mPlayerHands.hasTheNum(trumpId, targetNum);
+        ret = mPlayerHands.hasTheNum(trumpId, targetNum);
         return ret;
 
     }
 
+    //デバッグ用
+    public void showHands() {
+        String str;
+        String trump;
+
+        str = "";
+        for (int handsCard : mPlayerHands.getPlayerHand()) {
+            trump = convertTrump.convertTrumpSuit(handsCard) + convertTrump.convertTrumpNum(handsCard);
+            str = str + "|" + trump;
+        }
+        System.out.println(str);
+    }
 }

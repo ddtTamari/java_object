@@ -35,6 +35,7 @@ public class PlayerHands {
     public void dropCard(int drpCardId) {
         //手札から引かれたカードを消す
         mPlayerHandsList.remove(drpCardId);
+        System.out.println(getTrumpNum(drpCardId) + "はテーブルに出されました。");
     }
 
     /**
@@ -50,23 +51,49 @@ public class PlayerHands {
         return mPlayerHandsList;
     }
 
+    /**
+     * メソッド名：hasTheNum
+     * @author Tamari
+     * @param trumpId:手札の要素番号
+     *         targetNum:確認対象のトランプの数字
+     * @return hasNum:ターゲットの数字を持っているかどうか
+     * 処理内容：ture；ターゲットの数字のカードである/False:ターゲットの数字のカードではない
+     */
     public boolean hasTheNum(int trumpId, int targetNum) {
         boolean hasNum = false;
 
-        if ((mPlayerHandsList.get(trumpId) & Constant.TRUMP_SUIT_HEART_ELEMENT) == targetNum) {
+        if ((mPlayerHandsList.get(trumpId) & Constant.TRUMP_SUIT_HEART) == targetNum) {
             hasNum = true;
         } else if ((mPlayerHandsList.get(trumpId)
-                & Constant.TRUMP_SUIT_DIAMOND_ELEMENT) == targetNum) {
+                & Constant.TRUMP_SUIT_DIAMOND) == targetNum) {
             hasNum = true;
         } else if ((mPlayerHandsList.get(trumpId)
-                & Constant.TRUMP_SUIT_SPADE_ELEMENT) == targetNum) {
+                & Constant.TRUMP_SUIT_SPADE) == targetNum) {
             hasNum = true;
         } else if ((mPlayerHandsList.get(trumpId)
-                & Constant.TRUMP_SUIT_CLUB_ELEMENT) == targetNum) {
+                & Constant.TRUMP_SUIT_CLUB) == targetNum) {
             hasNum = true;
         }
 
         return hasNum;
+    }
+
+    /**
+     * メソッド名：hasTheTrump
+     * @author Tamari
+     * @param trumpId:手札の要素番号
+     *         targetNum:確認対象のトランプの数字
+     *         targetSuit:確認対象のトランプのスート
+     * @return hasNum:ターゲットの数字を持っているかどうか
+     * 処理内容：ture；ターゲットのトランプである/False:ターゲットのトランプではない
+     */
+    public boolean hasTheTrump(int trumpId, int targetNum, int targetSuit) {
+        boolean hasTrump = false;
+
+        if ((targetNum | targetSuit) == mPlayerHandsList.get(trumpId)) {
+            hasTrump = true;
+        }
+        return hasTrump;
     }
 
     public int getTrumpNum(int targetElement) {

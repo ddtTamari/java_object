@@ -9,7 +9,7 @@ public abstract class Player implements PlayerInterface {
     }
 
     //手札を確認する抽象メソッド
-    abstract public int getTheNumHand(int targetNum);
+    abstract public boolean checkHand(int trumpId, int targetNum);
 
     /**
      * メソッド名：disCardHand

@@ -8,7 +8,8 @@ public class ShichiFacilitator {
 
     private List<ShichinarabePlayer> mPlayerList = new ArrayList<ShichinarabePlayer>();
 
-    int mPlayerNum = Constant.PLAYER_INITIAL_NUM;
+    private int mPlayerNum = Constant.PLAYER_INITIAL_NUM;
+    private DiscardTable table = new DiscardTable();
 
     public void startShichiNarabe() {
         //  トランプクラスを用意する
@@ -93,10 +94,16 @@ public class ShichiFacilitator {
 
     //７のカードを出させる
     private void putDownACardSeven(int playerNum, List<ShichinarabePlayer> players) {
+        List<Integer> puttedSevenCard = new ArrayList<>();
         for (int playerLoop = 0; playerLoop < playerNum; playerLoop++) {
-            players.get(playerLoop).getTheTargetNumHand(Constant.TRUMP_NUMBER_SEVEN);
+            puttedSevenCard = players.get(playerLoop).getTheTargetNumHand(Constant.TRUMP_NUMBER_SEVEN);
+            if (puttedSevenCard.size() != 0) {
+                for (int card : puttedSevenCard) {
+                    table.registTable(card);
+                }
+            }
         }
-
+        table.showTable();
     }
 
     // カードクラスから指定された番号のカードを返す

@@ -9,7 +9,7 @@ public class ConvertTrumpCard {
      * 処理内容：数値で格納されているカードの値をスートに変換する
      */
     //トランプのスート変換(デバッグ用)
-    public String convertTrumpSuit(int card) {
+    public String convertTrumpSuitMark(int card) {
         //スート用変数
         String suit = "";
         //jokerだけは別枠で強制的にjokerマークにする
@@ -53,6 +53,37 @@ public class ConvertTrumpCard {
         }
         //カードを数字のみにした値を返す
         return card;
+    }
+
+    /**
+     * メソッド名：convertTrumpSuitNum
+     * @author Tamari
+     * @param  card : カードの値
+     * @return card : トランプの数字
+     * 処理内容：数値で格納されているカードの値を数字のみに変換する
+     */
+    // カードを数字のみにするメソッド
+    public int convertTrumpSuitNum(int card) {
+        //スート用変数
+        int suit = 0;
+        //ジョーカーじゃなければ
+        if (card != Constant.TRUMP_SUIT_JOKER) {
+            //スート用Bitフラグを下げる
+            suit = card & (~Constant.TRUMP_LOSE_SUIT);
+        }
+        return suit;
+    }
+
+    /**
+     * メソッド名：convertTrumpCard
+     * @author Tamari
+     * @param  card : カードの値
+     * @return card : トランプの数字とスート
+     * 処理内容：数値で格納されているカードの値をスート＋数字に変換する
+     */
+    public String convertTrumpCard(int card) {
+        String convertTrump = convertTrumpSuitMark(card) + String.valueOf(convertTrumpNum(card));
+        return convertTrump;
     }
 
 }

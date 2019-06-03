@@ -6,6 +6,7 @@ import java.util.List;
 public class PlayerHands {
     //プレイヤーの手札のリスト
     private List<Integer> mPlayerHandsList = new ArrayList<>();
+    private ConvertTrumpCard mConverter = new ConvertTrumpCard();
 
     //コンストラクタ
     public void playersHands() {
@@ -33,9 +34,9 @@ public class PlayerHands {
      */
     //カードが引かれる処理
     public void dropCard(int drpCardId) {
+        System.out.println(mConverter.convertTrumpCard(mPlayerHandsList.get(drpCardId)) + "はテーブルに出されました。");
         //手札から引かれたカードを消す
         mPlayerHandsList.remove(drpCardId);
-        System.out.println(getTrumpNum(drpCardId) + "はテーブルに出されました。");
     }
 
     /**
@@ -62,16 +63,7 @@ public class PlayerHands {
     public boolean hasTheNum(int trumpId, int targetNum) {
         boolean hasNum = false;
 
-        if ((mPlayerHandsList.get(trumpId) & Constant.TRUMP_SUIT_HEART) == targetNum) {
-            hasNum = true;
-        } else if ((mPlayerHandsList.get(trumpId)
-                & Constant.TRUMP_SUIT_DIAMOND) == targetNum) {
-            hasNum = true;
-        } else if ((mPlayerHandsList.get(trumpId)
-                & Constant.TRUMP_SUIT_SPADE) == targetNum) {
-            hasNum = true;
-        } else if ((mPlayerHandsList.get(trumpId)
-                & Constant.TRUMP_SUIT_CLUB) == targetNum) {
+        if (mConverter.convertTrumpNum(mPlayerHandsList.get(trumpId)) == targetNum) {
             hasNum = true;
         }
 

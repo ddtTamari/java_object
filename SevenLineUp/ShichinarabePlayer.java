@@ -5,6 +5,12 @@ import java.util.List;
 
 public class ShichinarabePlayer extends Player {
 
+    private int mPassTime = 0;
+
+    public ShichinarabePlayer() {
+        mPassTime = Constant.PASS_TIME;
+    }
+
     /**
      * メソッド名：addPlayerHand
      * @author Tamari
@@ -18,7 +24,7 @@ public class ShichinarabePlayer extends Player {
         mPlayerHands.addPlayerHand(card);
     }
 
-    //
+    //ターゲットの数字を持っているかどうかを確認する
     public List<Integer> getTheTargetNumHand(int targetNum) {
         List<Integer> havingTargetNumCD = new ArrayList<Integer>(Constant.CARD_INITIAL_NUM);
         List<Integer> havingTargetNum = new ArrayList<Integer>(Constant.CARD_INITIAL_NUM);
@@ -37,11 +43,27 @@ public class ShichinarabePlayer extends Player {
         return havingTargetNum;
     }
 
+    //    public int playTheCard(Integer[] canPutCardList) {
+    //        for (int canPut : canPutCardList) {
+    //
+    //
+    //
+    //        }
+    //    }
+
     public boolean checkHand(int trumpId, int targetNum) {
         boolean ret = false;
         ret = mPlayerHands.hasTheNum(trumpId, targetNum);
         return ret;
 
+    }
+
+    public boolean hasPass() {
+        boolean havePassTime = true;
+        if (mPassTime == 0) {
+            havePassTime = false;
+        }
+        return havePassTime;
     }
 
     //デバッグ用
@@ -56,4 +78,5 @@ public class ShichinarabePlayer extends Player {
         }
         System.out.println(str);
     }
+
 }

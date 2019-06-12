@@ -7,6 +7,8 @@ import java.util.Random;
 public class ShichiFacilitator {
 
     private List<ShichinarabePlayer> mPlayerList = new ArrayList<ShichinarabePlayer>();
+    private List<ShichinarabePlayer> mFinishPlayerList = new ArrayList<ShichinarabePlayer>();//上がったプレイヤーリスト
+    private List<ShichinarabePlayer> mDisqualificationPlayer = new ArrayList<ShichinarabePlayer>();
 
     private int mPlayerNum = Constant.PLAYER_INITIAL_NUM;
     private DiscardTable table = new DiscardTable();
@@ -29,7 +31,6 @@ public class ShichiFacilitator {
         setPlayerNum();
 
         List<ShichinarabePlayer> cPlayerList = new ArrayList<ShichinarabePlayer>(mPlayerNum); // 現在プレイしているプレイヤーリスト
-
         //プレイヤーの人数になるまで繰り返す
         for (int playerCount = 0; playerCount < mPlayerNum; playerCount++) {
             cPlayerList.add(new ShichinarabePlayer());
@@ -51,14 +52,12 @@ public class ShichiFacilitator {
     }
 
     private void initialAction(List<ShichinarabePlayer> players, Card trump, int playerNum) {
-
         // カードを配る
         distribution(trump, playerNum);
         //デバッグ用
         for (ShichinarabePlayer player : players) {
             player.showHands();
         }
-
         // 7を場に出す
         putDownACardSeven(playerNum, players);
     }
@@ -104,6 +103,40 @@ public class ShichiFacilitator {
             }
         }
         table.showTable();
+    }
+
+    private void mainShichinarabeAction() {
+        int[] canPlayCardList;
+        int trunPlayerID = 0;
+        //プレイしているプレイヤーがいなくなるまで繰り返す
+        do {
+            canPlayCardList = table.setCanPlayCard();
+            //プレイヤーに出せるカードがあるか確認してもらう
+
+
+            checkFinishPlayer(mPlayerList.get(trunPlayerID), trunPlayerID);
+
+            trunPlayerID++;
+            if (trunPlayerID > mPlayerList.size()) {
+                trunPlayerID = 0;
+            }
+
+        } while (mPlayerList.size() == 0);
+
+    }
+
+    private void checkFinishPlayer(ShichinarabePlayer targetPlayer, int turnUserId) {
+        if (targetPlayer.isFinish()) {
+            //終わったプレイヤーに追加
+            mFinishPlayerList.add(targetPlayer);
+            //プレイ中のリストから削除
+            mPlayerList.remove(turnUserId);
+        } else if (!targetPlayer.hasPass()) {
+            //失格リストに追加
+            mDisqualificationPlayer.add(targetPlayer);
+            //プレイ中のリストから削除
+            mPlayerList.remove(turnUserId);
+        }
     }
 
     // カードクラスから指定された番号のカードを返す

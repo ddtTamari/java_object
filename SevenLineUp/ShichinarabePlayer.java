@@ -30,7 +30,9 @@ public class ShichinarabePlayer extends Player {
         List<Integer> havingTargetNum = new ArrayList<Integer>(Constant.CARD_INITIAL_NUM);
 
         for (int handLoop = 0; handLoop < mPlayerHands.getPlayerHand().size(); handLoop++) {
+            //7をもっているか
             if (checkHand(handLoop, targetNum)) {
+                //
                 havingTargetNumCD.add(handLoop);
                 havingTargetNum.add(mPlayerHands.getTrumpNum(handLoop));
             }
@@ -51,16 +53,22 @@ public class ShichinarabePlayer extends Player {
     //        }
     //    }
 
+    //特定の番号を持っているか確認するメソッド
     public boolean checkHand(int trumpId, int targetNum) {
+        // 持っているかどうか
         boolean ret = false;
         ret = mPlayerHands.hasTheNum(trumpId, targetNum);
         return ret;
 
     }
 
+    //パス回数が残っているかどうか確認
     public boolean hasPass() {
+        //パスが残っているかどうか
         boolean havePassTime = true;
+        //パス回数が0個なら
         if (mPassTime == 0) {
+            //パスが残っていない
             havePassTime = false;
         }
         return havePassTime;

@@ -24,46 +24,68 @@ public class ShichinarabePlayer extends Player {
         mPlayerHands.addPlayerHand(card);
     }
 
-    //ターゲットの数字を持っているかどうかを確認する
+    //7の数字を持っているかどうかを確認する
     public List<Integer> getTheTargetNumHand(int targetNum) {
-        List<Integer> havingTargetNumCD = new ArrayList<Integer>(Constant.CARD_INITIAL_NUM);
+        List<Integer> havingTargetNumId = new ArrayList<Integer>(Constant.CARD_INITIAL_NUM);
         List<Integer> havingTargetNum = new ArrayList<Integer>(Constant.CARD_INITIAL_NUM);
 
+        //全ての手札を確認する
         for (int handLoop = 0; handLoop < mPlayerHands.getPlayerHand().size(); handLoop++) {
-            //7をもっているか
+            //ターゲットの数字をもっているか
             if (checkHand(handLoop, targetNum)) {
-                //
-                havingTargetNumCD.add(handLoop);
-                havingTargetNum.add(mPlayerHands.getTrumpNum(handLoop));
+                //持っていた時の要素番号を格納
+                havingTargetNumId.add(handLoop);
             }
         }
-        if (havingTargetNum.size() != 0) {
-            for (int reverseHandEle = havingTargetNum.size() - 1; reverseHandEle >= 0; reverseHandEle--) {
-                mPlayerHands.dropCard(havingTargetNumCD.get(reverseHandEle));
+
+        //7の時は必ず手札から除外する
+        if (targetNum == Constant.TRUMP_NUMBER_SEVEN) {
+            //7が手札にあったとき
+            if (havingTargetNum.size() != 0) {
+                //逆から手札を追っていき7のカードを手札から除外する
+                for (int reverseHandEle = havingTargetNum.size() - 1; reverseHandEle >= 0; reverseHandEle--) {
+                    //持っている数字を格納
+                    havingTargetNum.add(mPlayerHands.getTrumpNum(reverseHandEle));
+                    //手札を捨てる
+                    mPlayerHands.dropCard(havingTargetNumId.get(reverseHandEle));
+                }
+            }
+            //７じゃないときはランダムで捨てるカードを決めてテーブルにだす
+        } else {
+            //ターゲットが手札にあったとき
+            if (havingTargetNum.size() != 0) {
+
+            } else {
+                mPassTime = mPassTime - 1;
             }
         }
+
         return havingTargetNum;
     }
 
-    //    public int playTheCard(Integer[] canPutCardList) {
-    //        for (int canPut : canPutCardList) {
-    //
-    //
-    //
-    //        }
-    //    }
-
     //特定の番号を持っているか確認するメソッド
     public boolean checkHand(int trumpId, int targetNum) {
-        // 持っているかどうか
-        boolean ret = false;
-        ret = mPlayerHands.hasTheNum(trumpId, targetNum);
-        return ret;
+        //特定の番号を持っているかどうか確認
+        return mPlayerHands.hasTheNum(trumpId, targetNum);
 
     }
 
+    //パスタイムが残っているかどうか
+    public List<Integer> hasPass() {
+        //返却値用手札
+        List<Integer> havingTargetNumId = new ArrayList<Integer>(mPlayerHands.getPlayerHand().size());
+
+        //パス回数が残ってなければ
+        if(!hasPassTime()) {
+            //手札を捨てるので手札を全て渡す
+            havingTargetNumId = mPlayerHands.getPlayerHand();
+        }
+        //手札配列を返す
+        return havingTargetNumId;
+    }
+
     //パス回数が残っているかどうか確認
-    public boolean hasPass() {
+    public boolean hasPassTime() {
         //パスが残っているかどうか
         boolean havePassTime = true;
         //パス回数が0個なら

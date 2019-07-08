@@ -72,7 +72,7 @@ public class DiscardTable {
         System.out.println(tableCard);
     }
 
-    //埋まっていないカードのところに空白をいれるそり
+    //埋まっていないカードのところに空白をいれる処理
     private String createSpace(List<Integer> targetList, int targetPlace) {
         int minSuitNumber = getMinNumber(targetList);
         int maxSuitNumber = getMaxNumber(targetList);
@@ -94,12 +94,49 @@ public class DiscardTable {
         return cardSpace;
     }
 
+    // テーブルに出せる最大値を算出
     private int getMaxNumber(List<Integer> targetSuitList) {
-        return Collections.max(targetSuitList);
+        //最大値を求める
+        int maxNum = Collections.max(targetSuitList);
+
+        //最大値が7以外の時
+        if (maxNum != Constant.TRUMP_NUMBER_SEVEN) {
+            maxNum = getTargetMaxNum(maxNum, targetSuitList);
+        }
+
+        return maxNum;
+    }
+
+    private int getTargetMaxNum(int originalMaxNum, List<Integer> targetSuitList) {
+        int maxNum = Constant.CARD_INITIAL_NUM;
+        // 7までの間の数字が全部あるか確認
+        for (int decrementMaxNum = originalMaxNum; decrementMaxNum < 8; decrementMaxNum--) {
+            if (!targetSuitList.contains(decrementMaxNum)) {
+                maxNum = decrementMaxNum;
+            }
+        }
+        return maxNum;
     }
 
     private int getMinNumber(List<Integer> targetSuitList) {
+        //最大値を求める
+        int minNum = Collections.min(targetSuitList);
+        //最大値が7以外の時
+        if (minNum != Constant.TRUMP_NUMBER_SEVEN) {
+            minNum = getTargetMinNum(minNum, targetSuitList);
+        }
         return Collections.min(targetSuitList);
+    }
+
+    private int getTargetMinNum(int originalMinNum, List<Integer> targetSuitList) {
+        int minNum = Constant.CARD_INITIAL_NUM;
+        // 7までの間の数字が全部あるか確認
+        for (int incrementMinNum = originalMinNum; incrementMinNum > 6; incrementMinNum++) {
+            if (!targetSuitList.contains(incrementMinNum)) {
+                minNum = incrementMinNum;
+            }
+        }
+        return minNum;
     }
 
 }

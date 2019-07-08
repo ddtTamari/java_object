@@ -93,6 +93,7 @@ public class ShichiFacilitator {
 
     //７のカードを出させる
     private void putDownACardSeven(int playerNum, List<ShichinarabePlayer> players) {
+        //
         List<Integer> puttedSevenCard = new ArrayList<>();
         for (int playerLoop = 0; playerLoop < playerNum; playerLoop++) {
             puttedSevenCard = players.get(playerLoop).getTheTargetNumHand(Constant.TRUMP_NUMBER_SEVEN);
@@ -113,11 +114,14 @@ public class ShichiFacilitator {
             canPlayCardList = table.setCanPlayCard();
             //プレイヤーに出せるカードがあるか確認してもらう
 
-
+            //終了しているプレイヤーがいるかどうか
             checkFinishPlayer(mPlayerList.get(trunPlayerID), trunPlayerID);
 
+            //次のプレイヤーへ
             trunPlayerID++;
+            //プレイヤー人数より次の人のIDが大きくなった時
             if (trunPlayerID > mPlayerList.size()) {
+                //ターンプレイヤーをリセット
                 trunPlayerID = 0;
             }
 
@@ -126,12 +130,19 @@ public class ShichiFacilitator {
     }
 
     private void checkFinishPlayer(ShichinarabePlayer targetPlayer, int turnUserId) {
+        //対象のプレイヤーが終わっているかどうか確認
         if (targetPlayer.isFinish()) {
             //終わったプレイヤーに追加
             mFinishPlayerList.add(targetPlayer);
             //プレイ中のリストから削除
             mPlayerList.remove(turnUserId);
-        } else if (!targetPlayer.hasPass()) {
+            // 失格者かどうか
+        } else if (targetPlayer.hasPass().size() != 0) {
+            // 失格者の手札をテーブルに出力
+            for (int card : targetPlayer.hasPass()) {
+                //テーブルに登録
+                table.registTable(card);
+            }
             //失格リストに追加
             mDisqualificationPlayer.add(targetPlayer);
             //プレイ中のリストから削除

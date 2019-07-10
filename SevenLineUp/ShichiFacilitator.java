@@ -24,6 +24,8 @@ public class ShichiFacilitator {
 
         initialAction(mPlayerList, trumpDeck, mPlayerNum);
 
+        mainShichinarabeAction();
+
     }
 
     private List<ShichinarabePlayer> initialSetGameSetting() {
@@ -59,7 +61,7 @@ public class ShichiFacilitator {
             player.showHands();
         }
         // 7を場に出す
-        putDownACardSeven(playerNum, players);
+        putDownACardSeven(players);
     }
 
     // 配る処理
@@ -92,13 +94,13 @@ public class ShichiFacilitator {
     }
 
     //７のカードを出させる
-    private void putDownACardSeven(int playerNum, List<ShichinarabePlayer> players) {
+    private void putDownACardSeven(List<ShichinarabePlayer> players) {
         //
-        List<Integer> puttedSevenCard = new ArrayList<>();
-        for (int playerLoop = 0; playerLoop < playerNum; playerLoop++) {
-            puttedSevenCard = players.get(playerLoop).getTheTargetNumHand(Constant.TRUMP_NUMBER_SEVEN);
-            if (puttedSevenCard.size() != 0) {
-                for (int card : puttedSevenCard) {
+        List<Integer> putSevenCard = new ArrayList<>();
+        for (int playerLoop = 0; playerLoop < players.size(); playerLoop++) {
+            putSevenCard = players.get(playerLoop).getTheTargetSevenNumHand(Constant.TRUMP_NUMBER_SEVEN);
+            if (putSevenCard.size() != 0) {
+                for (int card : putSevenCard) {
                     table.registTable(card);
                 }
             }
@@ -113,7 +115,7 @@ public class ShichiFacilitator {
         do {
             canPlayCardList = table.setCanPlayCard();
             //プレイヤーに出せるカードがあるか確認してもらう
-
+            mPlayerList.get(trunPlayerID).getTheTargetNumHand(canPlayCardList);
             //終了しているプレイヤーがいるかどうか
             checkFinishPlayer(mPlayerList.get(trunPlayerID), trunPlayerID);
 
@@ -125,7 +127,7 @@ public class ShichiFacilitator {
                 trunPlayerID = 0;
             }
 
-        } while (mPlayerList.size() == 0);
+        } while (mPlayerList.size() != 0);
 
     }
 

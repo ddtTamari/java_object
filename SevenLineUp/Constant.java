@@ -50,7 +50,6 @@ public class Constant {
     public static final int SPACE_BEFORE = 0;
     public static final int SPACE_AFTER = 1;
     public static final int ADJUST_BEFORE_NUM = 1;
-    public static final String SAME_MIN_MAX_SPACE = "　|　|　|　|　|　";
-    public static final String CARD_SPACE = "　|";
+    public static final String CARD_SPACE = " |";
 
 }

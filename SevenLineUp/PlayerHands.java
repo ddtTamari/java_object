@@ -63,7 +63,7 @@ public class PlayerHands {
     public boolean hasTheNum(int trumpId, int targetNum) {
         boolean hasNum = false;
 
-        if (mConverter.convertTrumpNum(mPlayerHandsList.get(trumpId)) == targetNum) {
+        if (mPlayerHandsList.get(trumpId) == targetNum) {
             hasNum = true;
         }
 

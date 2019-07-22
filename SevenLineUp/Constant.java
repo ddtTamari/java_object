@@ -27,6 +27,7 @@ public class Constant {
     public static final int TRUMP_SUIT_NUM = 4; //スートの総数を表す定数
     public static final int TRUMP_LOSE_SUIT = 15; //スートBit削除用定数
     public static final int TRUMP_NUMBER_SEVEN = 7;//トランプの7番
+    public static final int NEXT_TRUMP = 1;//隣の数字のトランプを指定する定数
 
     //トランプに使用しない数字
     public static final int MISSING_NUM_001110 = 14; //ビット管理時に使用しない数字

@@ -8,9 +8,6 @@ public abstract class Player implements PlayerInterface {
     public void addPlayerHand(int card) {
     }
 
-    //手札を確認する抽象メソッド
-    abstract public boolean checkHand(int trumpId, int targetNum);
-
     /**
      * メソッド名：disCardHand
      * @author Tamari

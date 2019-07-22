@@ -95,10 +95,15 @@ public class ShichiFacilitator {
 
     //７のカードを出させる
     private void putDownACardSeven(List<ShichinarabePlayer> players) {
-        //
+
+        int sevenNumCard[] = { Constant.TRUMP_NUMBER_SEVEN | Constant.TRUMP_SUIT_HEART,
+                Constant.TRUMP_NUMBER_SEVEN | Constant.TRUMP_SUIT_DIAMOND,
+                Constant.TRUMP_NUMBER_SEVEN | Constant.TRUMP_SUIT_SPADE,
+                Constant.TRUMP_NUMBER_SEVEN | Constant.TRUMP_SUIT_CLUB };
+
         List<Integer> putSevenCard = new ArrayList<>();
         for (int playerLoop = 0; playerLoop < players.size(); playerLoop++) {
-            putSevenCard = players.get(playerLoop).getTheTargetSevenNumHand(Constant.TRUMP_NUMBER_SEVEN);
+            putSevenCard = players.get(playerLoop).getTheTargetSevenNumHand(sevenNumCard);
             if (putSevenCard.size() != 0) {
                 for (int card : putSevenCard) {
                     table.registTable(card);

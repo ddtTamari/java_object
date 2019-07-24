@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ShichinarabePlayer extends Player {
+public class ShichinarabePlayer extends HaveHandGamePlayer {
 
     private int mPassTime = Constant.PASS_TIME;
 
-    public ShichinarabePlayer() {
+    public ShichinarabePlayer(int playerName) {
+        super.mPlayerName = playerName;
     }
 
     /**
@@ -22,6 +23,10 @@ public class ShichinarabePlayer extends Player {
     public void addPlayerHand(int card) {
         //手札に登録する
         mPlayerHands.addPlayerHand(card);
+    }
+
+    public int getPlayerName() {
+        return mPlayerName;
     }
 
     //7の数字を持っているかどうかを確認する
@@ -47,25 +52,25 @@ public class ShichinarabePlayer extends Player {
                 //持っている数字を格納
                 havingTargetNum.add(mPlayerHands.getTrumpNum(havingTargetNumId.get(reverseHandEle)));
                 //手札を捨てる
-                mPlayerHands.dropCard(havingTargetNumId.get(reverseHandEle));
+                mPlayerHands.dropCard(havingTargetNumId.get(reverseHandEle), mPlayerName);
             }
         }
 
         return havingTargetNum;
     }
 
-    //特定のカードを持っているかどうかを確認する
-    public List<Integer> getTheTargetNumHand(int[] targetNum) {
+    //指定された次の番号のカードを返す
+    public int getTheTargetNumHand(int[] targetNum) {
         List<Integer> havingTargetNumId = new ArrayList<Integer>(Constant.CARD_INITIAL_NUM);
-        List<Integer> havingTargetNum = new ArrayList<Integer>(Constant.CARD_INITIAL_NUM);
         Random random = new Random();
         int randomValue = 0;
+        int putCardNum = 0;
 
         //全ての手札を確認する
         for (int handLoop = 0; handLoop < mPlayerHands.getPlayerHand().size(); handLoop++) {
             for (int i = 0; i < targetNum.length; i++) {
                 //ターゲットの数字をもっているか
-                if (checkHand(handLoop, targetNum[i])) {
+                if (checkNextTrump(handLoop, targetNum[i])) {
                     //持っていた時の要素番号を格納
                     havingTargetNumId.add(handLoop);
                 }
@@ -76,27 +81,21 @@ public class ShichinarabePlayer extends Player {
         if (havingTargetNumId.size() != 0) {
             randomValue = random.nextInt(havingTargetNumId.size());
             //持っている数字を格納
-            havingTargetNum.add(mPlayerHands.getTrumpNum(havingTargetNumId.get(randomValue)));
+            putCardNum = mPlayerHands.getTrumpNum(havingTargetNumId.get(randomValue));
             //手札を捨てる
-            mPlayerHands.dropCard(havingTargetNumId.get(randomValue));
+            mPlayerHands.dropCard(havingTargetNumId.get(randomValue), mPlayerName);
         } else {
             mPassTime = mPassTime - 1;
-            System.out.println("プレイヤーの残りパス数は" + mPassTime + "です。");
+            System.out.println("プレイヤー" + String.valueOf(mPlayerName) + "の残りパス数は" + mPassTime + "です。");
         }
 
-        return havingTargetNum;
+        return putCardNum;
     }
 
     //特定の番号を持っているか確認するメソッド
     public boolean checkHand(int trumpId, int targetNum) {
-        boolean haveTargetHand = false;
-        if (convertTrump.convertTrumpNum(targetNum) == Constant.TRUMP_NUMBER_SEVEN) {
-            haveTargetHand = mPlayerHands.hasTheNum(trumpId, targetNum);
-        } else {
-            haveTargetHand = checkNextTrump(trumpId, targetNum);
-        }
         //特定の番号を持っているかどうか確認
-        return haveTargetHand;
+        return mPlayerHands.hasTheNum(trumpId, targetNum);
     }
 
     private boolean checkNextTrump(int trumpId, int targetNum) {

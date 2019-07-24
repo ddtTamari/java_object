@@ -33,8 +33,9 @@ public class PlayerHands {
      * 処理内容：手札リストから除外する
      */
     //カードが引かれる処理
-    public void dropCard(int drpCardId) {
-        System.out.println(mConverter.convertTrumpCard(mPlayerHandsList.get(drpCardId)) + "はテーブルに出されました。");
+    public void dropCard(int drpCardId, int mPlayerName) {
+        System.out.println("プレイヤー" + mPlayerName + "は" +
+                mConverter.convertTrumpCard(mPlayerHandsList.get(drpCardId)) + "をテーブルに出しました。");
         //手札から引かれたカードを消す
         mPlayerHandsList.remove(drpCardId);
     }

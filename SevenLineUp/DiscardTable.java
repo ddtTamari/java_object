@@ -86,7 +86,7 @@ public class DiscardTable {
     }
 
     private int getTargetMaxNum(int originalMaxNum, List<Integer> targetSuitList) {
-        int maxNum = Constant.CARD_INITIAL_NUM;
+        int maxNum = originalMaxNum;
         // 7までの間の数字が全部あるか確認
         for (int decrementMaxNum = originalMaxNum; decrementMaxNum < 8; decrementMaxNum--) {
             if (!targetSuitList.contains(decrementMaxNum)) {

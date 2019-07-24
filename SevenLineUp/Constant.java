@@ -40,7 +40,7 @@ public class Constant {
     public static final int MISSING_NUM_ELEMENT = 7; //ビット管理時に使用しない数字
 
     //プレイヤー
-    public static final int MAX_PLAYER_NUM = 10;//プレイヤーの最大人数
+    public static final int MAX_PLAYER_NUM = 4;//プレイヤーの最大人数
     public static final int MIN_PLAYER_NUM = 2;//プレイヤーの最小人数
     public static final int PLAYER_INITIAL_NUM = 0;
 

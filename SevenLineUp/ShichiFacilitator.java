@@ -35,7 +35,7 @@ public class ShichiFacilitator {
         List<ShichinarabePlayer> cPlayerList = new ArrayList<ShichinarabePlayer>(mPlayerNum); // 現在プレイしているプレイヤーリスト
         //プレイヤーの人数になるまで繰り返す
         for (int playerCount = 0; playerCount < mPlayerNum; playerCount++) {
-            cPlayerList.add(new ShichinarabePlayer());
+            cPlayerList.add(new ShichinarabePlayer(playerCount + 1));
         }
 
         return cPlayerList;
@@ -47,7 +47,7 @@ public class ShichiFacilitator {
         Random rndNum = new Random(); //Playerの数をランダムで決めるため宣言
 
         // プレイヤー人数用の変数に格納
-        mPlayerNum = rndNum.nextInt(Constant.MAX_PLAYER_NUM) + 3;
+        mPlayerNum = rndNum.nextInt(Constant.MAX_PLAYER_NUM) + 2;
 
         //プレイ人数を表示
         System.out.println(mPlayerNum + MessageConstant.OUTPUT_PLAYER_NUM_MESSAGE);
@@ -72,7 +72,7 @@ public class ShichiFacilitator {
         int inputCard = Constant.CARD_INITIAL_NUM;
 
         // 52枚配り終わるまで繰り返す
-        for (int trumpID = 0; trumpID < Constant.MAX_TRUMP_NUM; trumpID++) {
+        for (int trumpID = 0; trumpID < Constant.MAX_TRUMP_NUM_WO_JPKER; trumpID++) {
             // プレイヤーに渡すカードを取得する
             inputCard = getCard(trump, trumpID);
             // プレイヤーに配る処理を行う
@@ -118,43 +118,71 @@ public class ShichiFacilitator {
         int trunPlayerID = 0;
         //プレイしているプレイヤーがいなくなるまで繰り返す
         do {
+
+            //
             canPlayCardList = table.setCanPlayCard();
-            //プレイヤーに出せるカードがあるか確認してもらう
-            mPlayerList.get(trunPlayerID).getTheTargetNumHand(canPlayCardList);
+            //プレイヤーにカードを出してもらう
+            table.registTable(mPlayerList.get(trunPlayerID).getTheTargetNumHand(canPlayCardList));
+
             //終了しているプレイヤーがいるかどうか
-            checkFinishPlayer(mPlayerList.get(trunPlayerID), trunPlayerID);
+            if (checkFinishPlayer(trunPlayerID)) {
+                addFinishList(trunPlayerID);
+            } else if (checkDisqualification(trunPlayerID)) {
+                addDisqualification(trunPlayerID);
+            }
 
             //次のプレイヤーへ
             trunPlayerID++;
             //プレイヤー人数より次の人のIDが大きくなった時
-            if (trunPlayerID > mPlayerList.size()) {
+            if (trunPlayerID >= mPlayerList.size()) {
+                table.showTable();
                 //ターンプレイヤーをリセット
                 trunPlayerID = 0;
             }
-
         } while (mPlayerList.size() != 0);
 
     }
 
-    private void checkFinishPlayer(ShichinarabePlayer targetPlayer, int turnUserId) {
+    private boolean checkFinishPlayer(int turnUserId) {
+        boolean isFinish = false;
         //対象のプレイヤーが終わっているかどうか確認
-        if (targetPlayer.isFinish()) {
+        if (mPlayerList.get(turnUserId).isFinish()) {
             //終わったプレイヤーに追加
-            mFinishPlayerList.add(targetPlayer);
+            mFinishPlayerList.add(mPlayerList.get(turnUserId));
             //プレイ中のリストから削除
             mPlayerList.remove(turnUserId);
-            // 失格者かどうか
-        } else if (targetPlayer.hasPass().size() != 0) {
+            isFinish = true;
+        }
+        return isFinish;
+    }
+
+    private void addFinishList(int turnUserId) {
+        //終わったプレイヤーに追加
+        mFinishPlayerList.add(mPlayerList.get(turnUserId));
+        //プレイ中のリストから削除
+        mPlayerList.remove(turnUserId);
+    }
+
+    private boolean checkDisqualification(int turnUserId) {
+        boolean isDisqualification = false;
+        if (mPlayerList.get(turnUserId).hasPass().size() != 0) {
             // 失格者の手札をテーブルに出力
-            for (int card : targetPlayer.hasPass()) {
+            for (int card : mPlayerList.get(turnUserId).hasPass()) {
                 //テーブルに登録
                 table.registTable(card);
             }
-            //失格リストに追加
-            mDisqualificationPlayer.add(targetPlayer);
-            //プレイ中のリストから削除
-            mPlayerList.remove(turnUserId);
+            isDisqualification = true;
         }
+        return isDisqualification;
+    }
+
+    private void addDisqualification(int turnUserId) {
+        System.out.println("プレイヤー" + mPlayerList.get(turnUserId).getPlayerName() + "は失格になりました。");
+        //失格リストに追加
+        mDisqualificationPlayer.add(mPlayerList.get(turnUserId));
+
+        //プレイ中のリストから削除
+        mPlayerList.remove(turnUserId);
     }
 
     // カードクラスから指定された番号のカードを返す

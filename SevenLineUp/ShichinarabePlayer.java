@@ -103,10 +103,10 @@ public class ShichinarabePlayer extends HaveHandGamePlayer {
 
         if (convertTrump.convertTrumpSuitMark(targetNum) == convertTrump
                 .convertTrumpSuitMark(mPlayerHands.getTrumpNum(trumpId))) {
-            if (convertTrump.convertTrumpNum(targetNum) + Constant.NEXT_TRUMP == mPlayerHands.getTrumpNum(trumpId)) {
+            if (convertTrump.convertTrumpNum(targetNum) + Constant.NEXT_TRUMP == convertTrump.convertTrumpNum(mPlayerHands.getTrumpNum(trumpId))) {
                 isNext = true;
-            } else if (convertTrump.convertTrumpNum(targetNum) - Constant.NEXT_TRUMP == mPlayerHands
-                    .getTrumpNum(trumpId)) {
+            } else if (convertTrump.convertTrumpNum(targetNum) - Constant.NEXT_TRUMP == convertTrump.convertTrumpNum(mPlayerHands
+                    .getTrumpNum(trumpId))) {
                 isNext = true;
             }
         }

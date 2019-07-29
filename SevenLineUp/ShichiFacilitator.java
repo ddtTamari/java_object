@@ -25,6 +25,7 @@ public class ShichiFacilitator {
         initialAction(mPlayerList, trumpDeck, mPlayerNum);
 
         mainShichinarabeAction();
+        endAction();
 
     }
 
@@ -47,7 +48,7 @@ public class ShichiFacilitator {
         Random rndNum = new Random(); //Playerの数をランダムで決めるため宣言
 
         // プレイヤー人数用の変数に格納
-        mPlayerNum = rndNum.nextInt(Constant.MAX_PLAYER_NUM) + 2;
+        mPlayerNum = rndNum.nextInt(Constant.MAX_PLAYER_NUM) + 4;
 
         //プレイ人数を表示
         System.out.println(mPlayerNum + MessageConstant.OUTPUT_PLAYER_NUM_MESSAGE);
@@ -56,10 +57,7 @@ public class ShichiFacilitator {
     private void initialAction(List<ShichinarabePlayer> players, Card trump, int playerNum) {
         // カードを配る
         distribution(trump, playerNum);
-        //デバッグ用
-        for (ShichinarabePlayer player : players) {
-            player.showHands();
-        }
+        showAllPlayerHands();
         // 7を場に出す
         putDownACardSeven(players);
     }
@@ -136,10 +134,13 @@ public class ShichiFacilitator {
             //プレイヤー人数より次の人のIDが大きくなった時
             if (trunPlayerID >= mPlayerList.size()) {
                 table.showTable();
+                showAllPlayerHands();
                 //ターンプレイヤーをリセット
                 trunPlayerID = 0;
             }
+
         } while (mPlayerList.size() != 0);
+
 
     }
 
@@ -147,6 +148,7 @@ public class ShichiFacilitator {
         boolean isFinish = false;
         //対象のプレイヤーが終わっているかどうか確認
         if (mPlayerList.get(turnUserId).isFinish()) {
+            System.out.println("プレイヤー"+mPlayerList.get(turnUserId).getPlayerName()+"は上がりました。");
             //終わったプレイヤーに追加
             mFinishPlayerList.add(mPlayerList.get(turnUserId));
             //プレイ中のリストから削除
@@ -189,6 +191,31 @@ public class ShichiFacilitator {
     private int getCard(Card trump, int element) {
         // 加える手札として返す
         return trump.returnCard(element);
+    }
+
+    // ゲーム終了処理
+    private void endAction() {
+        rankAnnouncement();
+    }
+
+    //順位発表
+    private void rankAnnouncement() {
+        int finishPlayerRank = Constant.PLAYER_INITIAL_NUM;
+        for (ShichinarabePlayer player : mFinishPlayerList) {
+            finishPlayerRank = finishPlayerRank + 1;
+            System.out.println(finishPlayerRank + "位はプレイヤー" + player.getPlayerName() + "です。");
+        }
+        for (ShichinarabePlayer disqualificationPlayer : mDisqualificationPlayer) {
+            finishPlayerRank = finishPlayerRank + 1;
+            System.out.println(finishPlayerRank + "位はプレイヤー" + disqualificationPlayer.getPlayerName() + "です。");
+        }
+    }
+
+    private void showAllPlayerHands() {
+        //デバッグ用
+        for (ShichinarabePlayer player : mPlayerList) {
+            player.showHands();
+        }
     }
 
 }

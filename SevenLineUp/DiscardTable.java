@@ -37,10 +37,10 @@ public class DiscardTable {
 
     public void showTable() {
         System.out.println("============Table===========");
-        setTblCard(mHeartTrump);
-        setTblCard(mDiaTrump);
-        setTblCard(mSpadeTrump);
-        setTblCard(mClubTrump);
+        setTblCard(mHeartTrump, Constant.TRUMP_SUIT_HEART);
+        setTblCard(mDiaTrump, Constant.TRUMP_SUIT_DIAMOND);
+        setTblCard(mSpadeTrump, Constant.TRUMP_SUIT_SPADE);
+        setTblCard(mClubTrump, Constant.TRUMP_SUIT_CLUB);
         System.out.println("============================");
     }
 
@@ -58,7 +58,7 @@ public class DiscardTable {
     }
 
     //
-    private void setTblCard(List<Integer> targetList) {
+    private void setTblCard(List<Integer> targetList, int suit) {
         String tableCard = "";
 
         Collections.sort(targetList);
@@ -66,7 +66,7 @@ public class DiscardTable {
             if (!targetList.contains(spaceLoop)) {
                 tableCard = tableCard + Constant.CARD_SPACE;
             } else {
-                tableCard = tableCard + spaceLoop + "|";
+                tableCard = tableCard + mConvertTrump.convertTrumpCard(spaceLoop + suit) + "|";
             }
         }
         System.out.println(tableCard);

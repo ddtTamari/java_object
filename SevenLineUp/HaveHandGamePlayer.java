@@ -8,6 +8,7 @@ public abstract class HaveHandGamePlayer implements PlayerInterface {
 
     public HaveHandGamePlayer() {
     }
+
     public HaveHandGamePlayer(int playerName) {
         mPlayerName = playerName;
     }

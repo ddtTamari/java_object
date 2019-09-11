@@ -1,6 +1,7 @@
 package shichinarabe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -19,15 +20,18 @@ public class ShichiFacilitator {
 
         // カードをシャッフル
         trumpDeck.shuffleCards(false);
+
         //プレイヤーリスト作成
         mPlayerList = initialSetGameSetting();
 
-        initialAction(mPlayerList, trumpDeck, mPlayerNum);
+        initialAction(trumpDeck);
 
         mainShichinarabeAction();
         endAction();
 
     }
+
+
 
     private List<ShichinarabePlayer> initialSetGameSetting() {
         // プレイヤーの人数を確認する
@@ -47,19 +51,20 @@ public class ShichiFacilitator {
 
         Random rndNum = new Random(); //Playerの数をランダムで決めるため宣言
 
-        // プレイヤー人数用の変数に格納
+        // 4~7人のプレイヤーを生成
         mPlayerNum = rndNum.nextInt(Constant.MAX_PLAYER_NUM) + 4;
 
         //プレイ人数を表示
         System.out.println(mPlayerNum + MessageConstant.OUTPUT_PLAYER_NUM_MESSAGE);
     }
 
-    private void initialAction(List<ShichinarabePlayer> players, Card trump, int playerNum) {
+    private void initialAction(Card trump) {
         // カードを配る
-        distribution(trump, playerNum);
+        distribution(trump, mPlayerNum);
+
         showAllPlayerHands();
         // 7を場に出す
-        putDownACardSeven(players);
+        putDownACardSeven(mPlayerList);
     }
 
     // 配る処理
@@ -114,23 +119,26 @@ public class ShichiFacilitator {
     private void mainShichinarabeAction() {
         int[] canPlayCardList;
         int trunPlayerID = 0;
+        int nowPlayerNum = 0;
         //プレイしているプレイヤーがいなくなるまで繰り返す
         do {
-
+            nowPlayerNum = trunPlayerID;
             //
             canPlayCardList = table.setCanPlayCard();
+
             //プレイヤーにカードを出してもらう
             table.registTable(mPlayerList.get(trunPlayerID).getTheTargetNumHand(canPlayCardList));
 
-            //終了しているプレイヤーがいるかどうか
-            if (checkFinishPlayer(trunPlayerID)) {
-                addFinishList(trunPlayerID);
-            } else if (checkDisqualification(trunPlayerID)) {
-                addDisqualification(trunPlayerID);
+            if (!checkDecreasePlayer(trunPlayerID)) {
+                if (nowPlayerNum != mPlayerList.size()) {
+                    //次のプレイヤーへ
+                    trunPlayerID++;
+                }
+            } else {
+                //次のプレイヤーへ
+                trunPlayerID++;
             }
 
-            //次のプレイヤーへ
-            trunPlayerID++;
             //プレイヤー人数より次の人のIDが大きくなった時
             if (trunPlayerID >= mPlayerList.size()) {
                 table.showTable();
@@ -141,14 +149,29 @@ public class ShichiFacilitator {
 
         } while (mPlayerList.size() != 0);
 
+    }
 
+    private boolean checkDecreasePlayer(int trunPlayerID) {
+        boolean isDecreased = false;
+
+        //手札を出し切ったか
+        if (checkFinishPlayer(trunPlayerID)) {
+            addFinishList(trunPlayerID);
+            isDecreased = true;
+
+        } else if (checkDisqualification(trunPlayerID)) {
+            addDisqualification(trunPlayerID);
+            isDecreased = true;
+        }
+
+        return isDecreased;
     }
 
     private boolean checkFinishPlayer(int turnUserId) {
         boolean isFinish = false;
         //対象のプレイヤーが終わっているかどうか確認
         if (mPlayerList.get(turnUserId).isFinish()) {
-            System.out.println("プレイヤー"+mPlayerList.get(turnUserId).getPlayerName()+"は上がりました。");
+            System.out.println("プレイヤー" + mPlayerList.get(turnUserId).getPlayerName() + "は上がりました。");
             //終わったプレイヤーに追加
             mFinishPlayerList.add(mPlayerList.get(turnUserId));
             //プレイ中のリストから削除
@@ -205,6 +228,7 @@ public class ShichiFacilitator {
             finishPlayerRank = finishPlayerRank + 1;
             System.out.println(finishPlayerRank + "位はプレイヤー" + player.getPlayerName() + "です。");
         }
+        Collections.reverse(mDisqualificationPlayer);
         for (ShichinarabePlayer disqualificationPlayer : mDisqualificationPlayer) {
             finishPlayerRank = finishPlayerRank + 1;
             System.out.println(finishPlayerRank + "位はプレイヤー" + disqualificationPlayer.getPlayerName() + "です。");

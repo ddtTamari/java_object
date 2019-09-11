@@ -44,7 +44,7 @@ public class Card {
             }
         }
         //Jokerありのゲームの時
-        if (hasJorker = true) {
+        if (hasJorker) {
             //トランプリストにJokerを登録する
             mTrumpCardList.add(Constant.TRUMP_SUIT_JOKER);
         }
